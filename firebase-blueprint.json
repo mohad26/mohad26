@@ -1,0 +1,67 @@
+{
+  "entities": {
+    "Comment": {
+      "title": "Social comment or news post",
+      "description": "An individual social media comment, forum post or news article about Jordan processed via NLP.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "author": { "type": "string" },
+        "handle": { "type": "string" },
+        "platform": { "type": "string", "enum": ["X", "Facebook", "Instagram", "YouTube"] },
+        "text": { "type": "string" },
+        "cleanedText": { "type": "string" },
+        "language": { "type": "string", "enum": ["ar", "en"] },
+        "sentiment": { "type": "string", "enum": ["positive", "neutral", "negative"] },
+        "sentimentScore": { "type": "number" },
+        "topic": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "likes": { "type": "number" },
+        "shares": { "type": "number" },
+        "tokens": { "type": "array", "items": { "type": "string" } },
+        "namedEntities": { "type": "array", "items": { "type": "string" } },
+        "keyPhrases": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["id", "author", "handle", "platform", "text", "cleanedText", "language", "sentiment", "sentimentScore", "topic", "timestamp"]
+    },
+    "Event": {
+      "title": "National Event or Policy Announcement",
+      "description": "An important national event, royal decree or policy announcement in Jordan.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "label": { "type": "string" },
+        "title": { "type": "string" },
+        "desc": { "type": "string" },
+        "icon": { "type": "string" },
+        "sentimentEffect": { "type": "string", "enum": ["positive", "neutral", "negative"] }
+      },
+      "required": ["id", "date", "label", "title", "desc", "icon", "sentimentEffect"]
+    },
+    "MonitoredCategory": {
+      "title": "Monitored social accounts category",
+      "description": "A set of social media handles tracked for a specific category of Jordanian public figures, news, etc.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "handles": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["handles"]
+    }
+  },
+  "firestore": {
+    "comments": {
+      "schema": "Comment",
+      "description": "Real-time collected comments and posts about Jordan."
+    },
+    "accounts": {
+      "schema": "MonitoredCategory",
+      "description": "Supervised social accounts monitored by crawlers compiled by categories."
+    },
+    "events": {
+      "schema": "Event",
+      "description": "Major national events and policy announcements rendered as annotations."
+    }
+  }
+}

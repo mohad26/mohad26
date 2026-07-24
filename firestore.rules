@@ -1,0 +1,91 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Safety Net Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Primitive Definitions for Path Variable Hardening and Auth Detection
+    function isValidId(id) { 
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); 
+    }
+    
+    function incoming() { 
+      return request.resource.data; 
+    }
+    
+    function existing() { 
+      return resource.data; 
+    }
+
+    // Comment Entity Validation Checker
+    function isValidComment(c) {
+      return c.keys().hasAll(['id', 'author', 'handle', 'platform', 'text', 'cleanedText', 'language', 'sentiment', 'sentimentScore', 'timestamp'])
+        && c.id is string
+        && c.id.size() <= 128
+        && c.author is string
+        && c.author.size() <= 256
+        && c.handle is string
+        && c.handle.size() <= 256
+        && c.platform in ['X', 'Facebook', 'Instagram', 'YouTube']
+        && c.text is string
+        && c.text.size() <= 4000
+        && c.cleanedText is string
+        && c.cleanedText.size() <= 4000
+        && c.language in ['ar', 'en']
+        && c.sentiment in ['positive', 'neutral', 'negative']
+        && c.sentimentScore is number
+        && c.sentimentScore >= -1.0
+        && c.sentimentScore <= 1.0;
+    }
+
+    // Account Category Validation Checker
+    function isValidCategory(cat) {
+      return cat.keys().hasAll(['handles'])
+        && cat.handles is list
+        && cat.handles.size() <= 200;
+    }
+
+    // Event Validation Checker
+    function isValidEvent(evt) {
+      return evt.keys().hasAll(['id', 'date', 'label', 'title', 'desc', 'icon', 'sentimentEffect'])
+        && evt.id is string
+        && evt.id.size() <= 128
+        && evt.date is string
+        && evt.date.size() <= 32
+        && evt.label is string
+        && evt.label.size() <= 128
+        && evt.title is string
+        && evt.title.size() <= 256
+        && evt.desc is string
+        && evt.desc.size() <= 4000
+        && evt.icon is string
+        && evt.icon.size() <= 16
+        && evt.sentimentEffect in ['positive', 'neutral', 'negative'];
+    }
+
+    // Rules for Comments Collection
+    match /comments/{commentId} {
+      allow read: if true;
+      allow create: if isValidId(commentId) && isValidComment(incoming());
+      allow update: if isValidId(commentId) && isValidComment(incoming()) && incoming().id == existing().id;
+      allow delete: if false;
+    }
+
+    // Rules for Supervised Accounts Configuration collection
+    match /accounts/{categoryId} {
+      allow read: if true;
+      allow create, update: if isValidId(categoryId) && isValidCategory(incoming());
+      allow delete: if false;
+    }
+
+    // Rules for Events Collection
+    match /events/{eventId} {
+      allow read: if true;
+      allow create, update: if isValidId(eventId) && isValidEvent(incoming());
+      allow delete: if false;
+    }
+  }
+}

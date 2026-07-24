@@ -1,0 +1,74 @@
+[
+  {
+    "keyword": "النشامى",
+    "frequency": 285,
+    "growth_rate": 82.4,
+    "category": "sports"
+  },
+  {
+    "keyword": "خسارة المنتخب",
+    "frequency": 210,
+    "growth_rate": 78.5,
+    "category": "sports"
+  },
+  {
+    "keyword": "التشجيع",
+    "frequency": 195,
+    "growth_rate": 65.2,
+    "category": "sports"
+  },
+  {
+    "keyword": "المنسف",
+    "frequency": 124,
+    "growth_rate": 15.4,
+    "category": "culture"
+  },
+  {
+    "keyword": "تلفريك عجلون",
+    "frequency": 98,
+    "growth_rate": 22.1,
+    "category": "tourism"
+  },
+  {
+    "keyword": "الباص السريع",
+    "frequency": 85,
+    "growth_rate": -4.5,
+    "category": "infrastructure"
+  },
+  {
+    "keyword": "البترا",
+    "frequency": 72,
+    "growth_rate": 8.2,
+    "category": "tourism"
+  },
+  {
+    "keyword": "سند",
+    "frequency": 44,
+    "growth_rate": 12,
+    "category": "infrastructure"
+  },
+  {
+    "keyword": "رواتب الأردنيين",
+    "frequency": 65,
+    "growth_rate": 18.2,
+    "category": "economy"
+  },
+  {
+    "keyword": "غلاء المعيشة",
+    "frequency": 95,
+    "growth_rate": 30.5,
+    "category": "economy"
+  },
+  {
+    "keyword": "المياه",
+    "frequency": 54,
+    "growth_rate": 14.1,
+    "category": "utilities"
+  },
+  {
+    "keyword": "وادي رم",
+    "frequency": 60,
+    "growth_rate": 9.3,
+    "category": "tourism"
+  }
+]

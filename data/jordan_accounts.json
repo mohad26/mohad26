@@ -1,0 +1,67 @@
+{
+  "banks": [
+    "@CentralBankOfJordan",
+    "@ArabBank",
+    "@HousingBank",
+    "@BankAlEtihad",
+    "@JordanKuwaitBank",
+    "@SafwaIslamicBank"
+  ],
+  "brands": [
+    "@RoyalJordanian",
+    "@JordanSportsTV",
+    "@Coach_JamalSellami",
+    "@Koora_Jordan",
+    "@AjlounCableCar",
+    "@VisitJordan",
+    "@JordanTourism"
+  ],
+  "government": [
+    "@RHCJO",
+    "@PrimeMinistry",
+    "@KingAbdullahII",
+    "@QueenRania",
+    "@CrownPrinceJO",
+    "@Jordan"
+  ],
+  "influencers": [
+    "@JordanianNashama",
+    "@AmmanPulse",
+    "@LinaMajali_jo",
+    "@NashamaFans",
+    "@SportJordan",
+    "@AmmanNet"
+  ],
+  "ministries": [
+    "@MoEnv_Jo",
+    "@MoWater_Jo",
+    "@MoTourism_Jo",
+    "@MoHE_Jordan",
+    "@MoICT_Jordan",
+    "@Mof_Gov_Jo",
+    "@Mohammad"
+  ],
+  "news": [
+    "@AlMamlakaTV",
+    "@RoyaNews",
+    "@PetraNews",
+    "@AmmonNews",
+    "@GhadNews",
+    "@AlraiNews",
+    "@SarahaNews"
+  ],
+  "telecom": [
+    "@ZainJordan",
+    "@OrangeJo",
+    "@Umniah",
+    "@TRC_Jordan"
+  ],
+  "universities": [
+    "@JU_JO",
+    "@Yarmouk_Univ",
+    "@JUST_JO",
+    "@HUJordan",
+    "@HashemiteUniv",
+    "@GermanJordanian"
+  ]
+}

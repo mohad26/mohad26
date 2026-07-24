@@ -1,0 +1,6 @@
+{
+  "name": "Jordan Social Sentiment SaaS",
+  "description": "Enterprise SaaS dashboard for collecting, cleaning, and analyzing social media comment trends and topic sentiments in Jordan using NLP and GenAI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
