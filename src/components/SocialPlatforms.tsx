@@ -52,7 +52,7 @@ export default function SocialPlatforms({
       textColor: "text-orange-500",
       accentColor: "bg-orange-500 text-white",
       icon: <span className="font-bold text-xs">r/</span>,
-      description: "Jordan subreddit public threads monitoring local economic friction."
+      description: "Custom multireddit (u/fresh-temperature927/m/jordan) & r/jordan public threads monitoring local social dynamics."
     },
     Telegram: {
       color: "bg-sky-500/[0.06] border-sky-500/20 hover:bg-sky-500/[0.12]",

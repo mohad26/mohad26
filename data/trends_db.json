@@ -1,74 +1,58 @@
 [
   {
-    "keyword": "النشامى",
-    "frequency": 285,
-    "growth_rate": 82.4,
-    "category": "sports"
-  },
-  {
-    "keyword": "خسارة المنتخب",
-    "frequency": 210,
-    "growth_rate": 78.5,
-    "category": "sports"
-  },
-  {
-    "keyword": "التشجيع",
-    "frequency": 195,
-    "growth_rate": 65.2,
-    "category": "sports"
-  },
-  {
-    "keyword": "المنسف",
-    "frequency": 124,
-    "growth_rate": 15.4,
+    "keyword": "jordan",
+    "keywordAr": "jordan",
+    "frequency": 96,
+    "growth_rate": 9600,
     "category": "culture"
   },
   {
-    "keyword": "تلفريك عجلون",
-    "frequency": 98,
-    "growth_rate": 22.1,
-    "category": "tourism"
+    "keyword": "the",
+    "keywordAr": "the",
+    "frequency": 68,
+    "growth_rate": 6800,
+    "category": "culture"
   },
   {
-    "keyword": "الباص السريع",
-    "frequency": 85,
-    "growth_rate": -4.5,
-    "category": "infrastructure"
+    "keyword": "for",
+    "keywordAr": "for",
+    "frequency": 49,
+    "growth_rate": 4900,
+    "category": "culture"
   },
   {
-    "keyword": "البترا",
-    "frequency": 72,
-    "growth_rate": 8.2,
-    "category": "tourism"
+    "keyword": "and",
+    "keywordAr": "and",
+    "frequency": 47,
+    "growth_rate": 4700,
+    "category": "culture"
   },
   {
-    "keyword": "سند",
+    "keyword": "اليوم",
+    "keywordAr": "اليوم",
+    "frequency": 46,
+    "growth_rate": 4600,
+    "category": "culture"
+  },
+  {
+    "keyword": "national",
+    "keywordAr": "national",
     "frequency": 44,
-    "growth_rate": 12,
-    "category": "infrastructure"
+    "growth_rate": 4400,
+    "category": "culture"
   },
   {
-    "keyword": "رواتب الأردنيين",
-    "frequency": 65,
-    "growth_rate": 18.2,
-    "category": "economy"
+    "keyword": "jack",
+    "keywordAr": "jack",
+    "frequency": 39,
+    "growth_rate": 3900,
+    "category": "culture"
   },
   {
-    "keyword": "غلاء المعيشة",
-    "frequency": 95,
-    "growth_rate": 30.5,
-    "category": "economy"
-  },
-  {
-    "keyword": "المياه",
-    "frequency": 54,
-    "growth_rate": 14.1,
-    "category": "utilities"
-  },
-  {
-    "keyword": "وادي رم",
-    "frequency": 60,
-    "growth_rate": 9.3,
-    "category": "tourism"
+    "keyword": "smith",
+    "keywordAr": "smith",
+    "frequency": 39,
+    "growth_rate": 3900,
+    "category": "culture"
   }
 ]

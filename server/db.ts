@@ -228,42 +228,56 @@ function initLocalDatabase() {
     syncEventsToFirestore().catch(e => console.error("Events Firestore sync failed during boot:", e));
   }
 
-  // Prepend fresh sports comments dynamically to reflect active live Jordanian soccer interest
-  // Check if they are already in the array
+  // Prepend fresh sports comments dynamically if not already present
   const hasSportSeed = commentsCache.some(c => c.id && c.id.startsWith("sport-seed-"));
   if (!hasSportSeed) {
-    commentsCache = [...SOCCER_SEEDS, ...commentsCache];
+    const taggedSeeds = SOCCER_SEEDS.map(s => ({
+      ...s,
+      provenance: {
+        sourceId: 'user_input' as const,
+        kind: 'social_comment' as const,
+        nativeUrl: null,
+        fetchedAt: s.timestamp || new Date().toISOString(),
+        collectedLive: false,
+      },
+      nlpInstrument: 'lexicon_rules' as const
+    }));
+    commentsCache = [...taggedSeeds, ...commentsCache];
   }
 
-  // Ensure dataset is distributed over the last 3 months (90 days) for historical telemetry
+  // Ensure field integrity without rewriting timestamps or inventing source data
   if (commentsCache.length > 0) {
-    const fixedNow = new Date("2026-06-20T07:46:00Z");
-    commentsCache.sort((a, b) => a.id.localeCompare(b.id)); // Deterministic sort
-    commentsCache.forEach((comment, i) => {
-      // Do not overwrite sport seed timestamps to keep them extremely fresh (today)
-      if (comment.id && comment.id.startsWith("sport-seed-")) {
-        return;
+    commentsCache.forEach((comment) => {
+      if (!comment.provenance) {
+        comment.provenance = {
+          sourceId: 'user_input',
+          kind: 'social_comment',
+          nativeUrl: null,
+          fetchedAt: comment.timestamp || new Date().toISOString(),
+          collectedLive: false,
+        };
       }
-      
-      // Space comments evenly across 90 days (3 months)
-      const daysAgo = (comment.id && comment.id.startsWith("sport-seed-")) ? 0 : ((i % 90) + (i / commentsCache.length));
-      const commentDate = new Date(fixedNow.getTime() - (daysAgo * 24 * 60 * 60 * 1000));
-      comment.timestamp = commentDate.toISOString();
-      
-      // Let's guarantee every comment has a valid topic & platform
+      if (comment.likeCount === undefined) {
+        comment.likeCount = typeof comment.likes === 'number' ? comment.likes : null;
+      }
+      if (comment.replyCount === undefined) {
+        comment.replyCount = typeof comment.shares === 'number' ? comment.shares : null;
+      }
+      if (!comment.nlpInstrument) {
+        comment.nlpInstrument = 'lexicon_rules';
+      }
       if (!comment.topic) {
         comment.topic = "General Discussion";
       }
       if (!comment.platform) {
-        const platforms: PlatformType[] = ["X", "Facebook", "Instagram", "YouTube"];
-        comment.platform = platforms[i % 4];
+        comment.platform = "X";
       }
     });
 
     // Sort descending so the latest is always first in feed
     commentsCache.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
     saveComments();
-    console.log(`[DATABASE MANAGER] Initialized ${commentsCache.length} comments spanning the last 90 days (3 months) with fresh sports updates incorporated.`);
+    console.log(`[DATABASE MANAGER] Initialized ${commentsCache.length} comments in local database cache.`);
   }
 }
 

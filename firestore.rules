@@ -22,23 +22,30 @@ service cloud.firestore {
 
     // Comment Entity Validation Checker
     function isValidComment(c) {
-      return c.keys().hasAll(['id', 'author', 'handle', 'platform', 'text', 'cleanedText', 'language', 'sentiment', 'sentimentScore', 'timestamp'])
+      return c.keys().hasAll(['id', 'author', 'handle', 'platform', 'text', 'cleanedText', 'language', 'sentiment', 'sentimentScore', 'timestamp', 'provenance'])
         && c.id is string
         && c.id.size() <= 128
         && c.author is string
         && c.author.size() <= 256
         && c.handle is string
         && c.handle.size() <= 256
-        && c.platform in ['X', 'Facebook', 'Instagram', 'YouTube']
         && c.text is string
-        && c.text.size() <= 4000
+        && c.text.size() <= 10000
         && c.cleanedText is string
-        && c.cleanedText.size() <= 4000
-        && c.language in ['ar', 'en']
+        && c.cleanedText.size() <= 10000
+        && c.language is string
+        && c.language.size() <= 16
         && c.sentiment in ['positive', 'neutral', 'negative']
         && c.sentimentScore is number
-        && c.sentimentScore >= -1.0
-        && c.sentimentScore <= 1.0;
+        && c.sentimentScore >= -1.1
+        && c.sentimentScore <= 1.1
+        && c.provenance is map
+        && c.provenance.keys().hasAll(['sourceId', 'kind', 'fetchedAt', 'collectedLive'])
+        && c.provenance.sourceId is string
+        && c.provenance.sourceId.size() <= 64
+        && c.provenance.kind is string
+        && c.provenance.kind.size() <= 64
+        && c.provenance.collectedLive is bool;
     }
 
     // Account Category Validation Checker

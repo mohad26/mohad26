@@ -22,6 +22,9 @@ import SocialPlatforms from "./components/SocialPlatforms";
 import ControlCenter from "./components/ControlCenter";
 import NlpSandbox from "./components/NlpSandbox";
 import ResearchReport from "./components/ResearchReport";
+import { SourceHealthBanner } from "./components/SourceHealthBanner";
+import { MetaImportAdmin } from "./components/MetaImportAdmin";
+import { CorpusStatsModal } from "./components/CorpusStatsModal";
 
 const PRESET_DIALECTS = [
   {
@@ -134,6 +137,10 @@ export default function App() {
   const [reportTopic, setReportTopic] = useState("Tourism & Hospitality");
   const [reportText, setReportText] = useState("");
   const [reportLoading, setReportLoading] = useState(false);
+
+  // Modal & Tab Navigation State
+  const [isCorpusStatsOpen, setIsCorpusStatsOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'meta_import'>('dashboard');
 
   // Live Stream State
   const [streamActive, setStreamActive] = useState(false);
@@ -381,47 +388,51 @@ export default function App() {
   const fetchSystemStatus = async () => {
     try {
       const res = await fetch("/api/system-status");
-      if (res.ok) {
+      const contentType = res.headers.get("content-type") || "";
+      if (res.ok && contentType.includes("application/json")) {
         const data = await res.json();
         setQuotaExhausted(data.quotaExhausted);
         setActiveSource(data.activeSource);
         setRequestsUsed(data.requestsUsed || 0);
       }
     } catch (e) {
-      console.error("Failed to fetch system status:", e);
+      console.warn("Failed to fetch system status:", e);
     }
   };
 
   const handleResetQuota = async () => {
     try {
       const res = await fetch("/api/system-status/reset", { method: "POST" });
-      if (res.ok) {
+      const contentType = res.headers.get("content-type") || "";
+      if (res.ok && contentType.includes("application/json")) {
         const data = await res.json();
         setQuotaExhausted(data.quotaExhausted);
         setActiveSource("Gemini Scraper & Grounding");
         setRequestsUsed(0);
       }
     } catch (e) {
-      console.error("Failed to reset quota:", e);
+      console.warn("Failed to reset quota:", e);
     }
   };
 
   const fetchSyncStatus = async () => {
     try {
       const res = await fetch("/api/sync-status");
-      if (res.ok) {
+      const contentType = res.headers.get("content-type") || "";
+      if (res.ok && contentType.includes("application/json")) {
         const data = await res.json();
         setSyncStatus(data);
       }
     } catch (e) {
-      console.error("Failed to fetch crawler statuses:", e);
+      console.warn("Failed to fetch crawler statuses:", e);
     }
   };
 
   const fetchAccounts = async () => {
     try {
       const res = await fetch("/api/accounts");
-      if (res.ok) {
+      const contentType = res.headers.get("content-type") || "";
+      if (res.ok && contentType.includes("application/json")) {
         const data = await res.json();
         setMonitoredAccounts(data || {});
         if (data && data["news"]) {
@@ -429,7 +440,7 @@ export default function App() {
         }
       }
     } catch (e) {
-      console.error("Failed to load monitored handles:", e);
+      console.warn("Failed to load monitored handles:", e);
     }
   };
 
@@ -472,31 +483,37 @@ export default function App() {
     try {
       setLoading(true);
       const commentsRes = await fetch("/api/comments");
-      const commentsJson = await commentsRes.json();
-      setComments(commentsJson.comments || []);
+      if (commentsRes.ok && commentsRes.headers.get("content-type")?.includes("application/json")) {
+        const commentsJson = await commentsRes.json();
+        setComments(commentsJson.comments || []);
+      }
 
       const trendsRes = await fetch("/api/trends");
-      const trendsJson = await trendsRes.json();
-      setKpis(trendsJson.kpi);
-      setTrends(trendsJson.trends || []);
-      setWordcloud(trendsJson.wordcloud || { ar: [], en: [] });
-      setKeywordTrends(trendsJson.keywordTrends || []);
+      if (trendsRes.ok && trendsRes.headers.get("content-type")?.includes("application/json")) {
+        const trendsJson = await trendsRes.json();
+        setKpis(trendsJson.kpi);
+        setTrends(trendsJson.trends || []);
+        setWordcloud(trendsJson.wordcloud || { ar: [], en: [] });
+        setKeywordTrends(trendsJson.keywordTrends || []);
+      }
       
       try {
         const eventsRes = await fetch("/api/events");
-        const eventsJson = await eventsRes.json();
-        if (eventsJson.success && eventsJson.events) {
-          setEvents(eventsJson.events);
+        if (eventsRes.ok && eventsRes.headers.get("content-type")?.includes("application/json")) {
+          const eventsJson = await eventsRes.json();
+          if (eventsJson.success && eventsJson.events) {
+            setEvents(eventsJson.events);
+          }
         }
       } catch (errEvent) {
-        console.error("Failed fetching dynamic annotations from collection 'events':", errEvent);
+        console.warn("Failed fetching dynamic annotations from collection 'events':", errEvent);
       }
       
       await fetchSystemStatus();
       await fetchSyncStatus();
       await fetchAccounts();
     } catch (e) {
-      console.error("Failed loading dashboard data:", e);
+      console.warn("Failed loading dashboard data:", e);
     } finally {
       setLoading(false);
     }
@@ -505,55 +522,6 @@ export default function App() {
   useEffect(() => {
     fetchData();
   }, []);
-
-  // Syncing real-time streaming comments loop
-  useEffect(() => {
-    let intervalId: any = null;
-    if (streamActive) {
-      const runStreamTick = async () => {
-        try {
-          const res = await fetch("/api/comments/stream-tick");
-          if (res.ok) {
-            const data = await res.json();
-            if (data.success && data.comment) {
-              const fresh = data.comment;
-              setComments(prev => [fresh, ...prev]);
-              setStreamLog(prev => [
-                {
-                  id: fresh.id,
-                  author: fresh.author,
-                  topic: fresh.topic,
-                  timestamp: new Date().toLocaleTimeString("jo", { hour: "2-digit", minute: "2-digit", second: "2-digit" })
-                },
-                ...prev.slice(0, 5)
-              ]);
-
-              // Update statistics live
-              const trendsRes = await fetch("/api/trends");
-              if (trendsRes.ok) {
-                const trendsJson = await trendsRes.json();
-                setKpis(trendsJson.kpi);
-                setTrends(trendsJson.trends || []);
-                setWordcloud(trendsJson.wordcloud || { ar: [], en: [] });
-                setKeywordTrends(trendsJson.keywordTrends || []);
-              }
-              await fetchSystemStatus();
-              await fetchSyncStatus();
-            }
-          }
-        } catch (err) {
-          console.error("Stream polling tick error:", err);
-        }
-      };
-
-      runStreamTick();
-      intervalId = setInterval(runStreamTick, 5000); // Poll every 5s
-    }
-
-    return () => {
-      if (intervalId) clearInterval(intervalId);
-    };
-  }, [streamActive]);
 
   // Publish manual comment manually to server
   const handleAddComment = async (e: React.FormEvent) => {
@@ -686,13 +654,22 @@ export default function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ topic: reportTopic })
       });
-      if (res.ok) {
+      const contentType = res.headers.get("content-type") || "";
+      if (res.ok && contentType.includes("application/json")) {
         const data = await res.json();
         setReportText(data.report);
         await fetchSystemStatus();
+      } else {
+        let errMsg = "Strategic analysis report service currently offline or quota limit reached.";
+        if (contentType.includes("application/json")) {
+          const errData = await res.json().catch(() => ({}));
+          if (errData.error) errMsg = errData.error;
+        }
+        setReportText(`> ⚠️ **Service Notice**: ${errMsg}\n\nPlease try again or verify system status.`);
       }
-    } catch (e) {
-      console.error("Strategic analysis failed:", e);
+    } catch (e: any) {
+      console.warn("Strategic analysis failed:", e);
+      setReportText(`> ⚠️ **Service Notice**: Strategic analysis request encountered an error: ${e?.message || 'Network issue'}`);
     } finally {
       setReportLoading(false);
     }
@@ -912,6 +889,8 @@ SLIDE 4: Emotional Complex aggregates
 
   return (
     <div dir={lang === "ar" ? "rtl" : "ltr"} className={`min-h-screen flex flex-col font-sans transition-all duration-300 ${backgroundStyle}`}>
+      {/* Source Provenance Health Status Banner */}
+      <SourceHealthBanner />
       
       {/* 1. Executive Premium Navigation Bar */}
       <nav className={`sticky top-0 z-40 px-6 py-4 border-b border-slate-800/80 backdrop-blur-md shadow-lg ${
@@ -970,6 +949,36 @@ SLIDE 4: Emotional Complex aggregates
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
+            {/* View Switchers */}
+            <button
+              onClick={() => setActiveTab('dashboard')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold border transition-colors ${
+                activeTab === 'dashboard'
+                  ? 'bg-emerald-700 text-white border-emerald-600'
+                  : themeMode === 'dark' ? 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800' : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
+              }`}
+            >
+              {lang === "ar" ? "لوحة التحليلات" : "Analytics Dashboard"}
+            </button>
+
+            <button
+              onClick={() => setActiveTab('meta_import')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold border transition-colors ${
+                activeTab === 'meta_import'
+                  ? 'bg-emerald-700 text-white border-emerald-600'
+                  : themeMode === 'dark' ? 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800' : 'bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200'
+              }`}
+            >
+              {lang === "ar" ? "استيراد مكتبة ميتا (MCL)" : "Meta Import Admin"}
+            </button>
+
+            {/* Corpus Audit Modal Button */}
+            <button
+              onClick={() => setIsCorpusStatsOpen(true)}
+              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30 hover:bg-amber-500/20 transition-colors"
+            >
+              {lang === "ar" ? "تدقيق سجل العينة (Corpus)" : "Corpus Audit (N)"}
+            </button>
             {/* Stream Active button */}
             <button
               onClick={() => setStreamActive(!streamActive)}
@@ -1127,6 +1136,10 @@ SLIDE 4: Emotional Complex aggregates
           </div>
         )}
 
+        {activeTab === 'meta_import' ? (
+          <MetaImportAdmin />
+        ) : (
+          <>
         {/* NATIONAL RESEARCH INDEX PLATFORM STATEMENT (Bilingual & Clean) */}
         <div className="bg-gradient-to-r from-[#121829] via-[#0d101a] to-[#1a1322] border border-[#DFB76C]/30 rounded-3xl p-6 shadow-2xl relative overflow-hidden select-none">
           
@@ -2105,8 +2118,13 @@ SLIDE 4: Emotional Complex aggregates
           </div>
 
         </section>
+        </>
+        )}
 
       </main>
+
+      {/* Corpus Audit Modal */}
+      <CorpusStatsModal isOpen={isCorpusStatsOpen} onClose={() => setIsCorpusStatsOpen(false)} />
 
       {/* Polish theme footer bar */}
       <footer className="h-10 bg-[#07090f] text-slate-500 text-[10px] flex items-center justify-between px-6 shrink-0 mt-12 border-t border-slate-900 select-none">

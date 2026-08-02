@@ -1,18 +1,20 @@
 /**
- * Arabic Dialect & MSA NLP Engine + Optimized Gemini Batch Router.
- * Implements strict Grounding rules, Quota checks, Batch processing, and Cooldowns.
+ * Arabic Dialect & MSA NLP Engine + Codebook v1 Classification & Gemini Router.
+ * Implements mathematical trends calculation, strict provenance, and codebook alignment.
  */
 
 import { GoogleGenAI, Type } from "@google/genai";
-import { Comment, PlatformType, SentimentType } from "../src/types";
+import { Comment, PlatformType, SentimentType, Provenance } from "../src/types";
 import { DBTrend } from "./db";
+import codebook from "../config/codebook_v1.json";
+
+export const CODEBOOK_VERSION = codebook.version; // "v1.0.0"
 
 // Quota & Cooldown management state
 export let geminiQuotaExhausted = false;
 export let lastQuotaFailureTime = 0;
 export const GROUNDING_COOLDOWN_MS = 30 * 60 * 1000; // 30 minutes cooldown on HTTP 429
 
-// Stats
 export let totalRequestsUsed = 0;
 
 export function setQuotaState(exhausted: boolean) {
@@ -26,58 +28,32 @@ export function setQuotaState(exhausted: boolean) {
 }
 
 export function handleGeminiError(e: any, context: string) {
-  const errMsg = e?.message || "";
-  const errStr = typeof e === "object" ? JSON.stringify(e) : String(e);
   console.log(`[Gemini Handler] Failover active in [${context}] due to transient API rate/quota limits.`);
+  const errMsg = e?.message || "";
   if (
     e?.code === 429 ||
     e?.status === 429 ||
     e?.status === "RESOURCE_EXHAUSTED" ||
-    errMsg.includes("429") ||
+    e?.response?.status === 429 ||
     errMsg.includes("RESOURCE_EXHAUSTED") ||
-    errMsg.includes("quota") ||
-    errStr.includes("429") ||
-    errStr.includes("RESOURCE_EXHAUSTED") ||
-    errStr.includes("quota")
+    errMsg.includes("429")
   ) {
     geminiQuotaExhausted = true;
     lastQuotaFailureTime = Date.now();
   }
 }
 
-/**
- * Intelligent Router that only matches TRUE for breaking/latest terms.
- * Never ground normal social-media threads or static sentiment analyses.
- */
-export function shouldUseGrounding(query: string): boolean {
-  if (!query) return false;
-  const q = query.toLowerCase();
-  
-  // Specific breaking news and trend keywords
-  const triggerKeywords = [
-    "latest", "today", "current", "breaking", "news", "trend", "trending", 
-    "أحدث", "اليوم", "الحالي", "عاجل", "أخبار", "جديد", "ترند"
-  ];
-
-  return triggerKeywords.some(keyword => q.includes(keyword));
-}
-
-/**
- * Returns lazy-loaded Gemini SDK client or null if rate-limited
- */
 export function getGeminiClient(): GoogleGenAI | null {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey || apiKey === "MY_GEMINI_API_KEY") {
     return null;
   }
   
-  // Check cooldown recovery
   if (geminiQuotaExhausted) {
     if (Date.now() - lastQuotaFailureTime > GROUNDING_COOLDOWN_MS) {
       console.log("Grounding cooldown period elapsed. Resetting circuit breaker.");
       geminiQuotaExhausted = false;
     } else {
-      // Cooldown in progress - do not call Gemini to save billing & maintain HA
       return null;
     }
   }
@@ -93,8 +69,25 @@ export function getGeminiClient(): GoogleGenAI | null {
 }
 
 /**
- * High-Fidelity Local NLP Engine (Arabic Dialects & Gulf/Levantine, and English).
- * Perfect fallback when Gemini is offline.
+ * Classifies text against Codebook v1 using exact seed word boundaries.
+ */
+export function classifyThemeLexicon(text: string): { themeId: string; confidence: number } {
+  const lowerText = text.toLowerCase();
+  for (const theme of codebook.themes) {
+    if (theme.id === "unclassified") continue;
+    for (const seed of theme.seedTerms) {
+      const escaped = seed.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`(?:^|\\s|\\b)${escaped}(?:$|\\s|\\b)`, 'i');
+      if (regex.test(text) || lowerText.includes(seed.toLowerCase())) {
+        return { themeId: theme.id, confidence: 0.85 };
+      }
+    }
+  }
+  return { themeId: "unclassified", confidence: 0.0 };
+}
+
+/**
+ * High-Fidelity Local Lexicon NLP Engine with Codebook v1.
  */
 export function cleanAndPreprocessLocal(text: string): { 
   cleanedText: string; 
@@ -103,14 +96,17 @@ export function cleanAndPreprocessLocal(text: string): {
   namedEntities: string[]; 
   keyPhrases: string[]; 
   topic: string; 
+  themeId: string;
+  codebookVersion: string;
+  themeConfidence: number;
   sentiment: SentimentType; 
   score: number;
+  sentimentConfidence: number;
 } {
   const arabicRegex = /[\u0600-\u06FF]/;
   const isArabic = arabicRegex.test(text);
   const lang = isArabic ? 'ar' : 'en';
 
-  // Normalize URLs, mentions, emojis
   let cleaned = text
     .replace(/https?:\/\/\S+|www\.\S+/g, '')
     .replace(/@\w+/g, '')
@@ -119,171 +115,151 @@ export function cleanAndPreprocessLocal(text: string): {
 
   let processed = cleaned;
   if (isArabic) {
-    // Standard Hamzas, Ya/Alif and diacritics normalization
+    // Normalization: Tashkeel removal, Hamza & Alif/Ya, and convention ة -> ه
     processed = processed
-      .replace(/[\u064B-\u065F]/g, "") // remove Tashkeel
+      .replace(/[\u064B-\u065F]/g, "")
       .replace(/[أإآ]/g, "ا")
       .replace(/ى/g, "ي")
-      .replace(/ه\b/g, "ة")
+      .replace(/ة/g, "ه") // Convention: ة -> ه
       .replace(/ـ/g, "");
   } else {
     processed = processed.toLowerCase();
   }
 
-  // Tokenization stopwords
   const stopWordsAr = ["في", "من", "على", "هذا", "التي", "الذي", "ان", "انها", "هو", "هي", "لا", "ما", "مع", "كان", "كانت", "يا", "بس", "وين", "لكن", "عن", "إلى", "إن", "هذه", "ثم", "أو", "حتى"];
   const stopWordsEn = ["the", "and", "a", "an", "is", "of", "to", "for", "in", "on", "with", "but", "very", "was", "were", "this", "it", "so", "some", "at", "about", "by", "from"];
   
   const rawWords = processed.split(/\s+/).map(w => w.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g, ""));
   const tokens = rawWords.filter(w => {
     if (w.length < 3) return false;
-    if (isArabic) {
-      return !stopWordsAr.includes(w);
-    } else {
-      return !stopWordsEn.includes(w.toLowerCase());
-    }
+    return isArabic ? !stopWordsAr.includes(w) : !stopWordsEn.includes(w.toLowerCase());
   });
 
-  // Jordan Topic keywords mapping
-  const tourismKeywordsAr = ["البترا", "وادي رم", "عجلون", "العقبة", "تلفريك", "البحر الميت", "جرش", "سياح", "سياحة", "سياحي", "بلدنا", "الجمال", "زيارتي", "رحلة", "تاريخ", "الأثرية"];
-  const tourismKeywordsEn = ["petra", "rum", "tourism", "dead sea", "travel", "visit", "tourist", "guide", "destination", "ruins", "landscape", "aqaba"];
-  
-  const economyKeywordsAr = ["رواتب", "اسعار", "الاسعار", "الغلاء", "الاقتصاد", "استثمار", "المعيشة", "الوضع الاقتصاد", "الشركات", "مشاريع", "الزراعة", "الفقر", "الضرائب", "تضخم", "عجز", "سوق", "وظيفة", "عمل"];
-  const economyKeywordsEn = ["economy", "inflation", "cost", "salary", "salaries", "invest", "tax", "prices", "expensive", "startups", "mena", "hub", "finance", "jobs", "unemployment"];
+  // Codebook v1 classification
+  const themeRes = classifyThemeLexicon(text);
 
-  const sportsKeywordsAr = ["الالقاء", "النشامى", "منتخبنا", "المنتخب", "الدفاع", "الفيصلي", "الوحدات", "كورة", "كرة", "المباراة", "تكتيك", "البطولة", "التمركز", "كفو", "الأردني", "هدف", "فوز", "خسارة", "خسرنا", "تشجيع", "التشجيع"];
-  const sportsKeywordsEn = ["match", "football", "sports", "team", "stadium", "soccer", "championship", "tactics", "game", "nashama", "win", "goals", "defeat", "loss", "lost", "cheer", "cheering"];
+  // Sentiment Lexicons
+  const posLexAr = ["رائع", "ممتاز", "خيالي", "جميل", "مبروك", "بطل", "كفو", "بجنن", "الاعظم", "فخور", "تنظيم", "تطور", "دافي", "كريم", "امن", "سلام", "مبدع", "حب", "إيجابي", "ممتازة", "حلو"];
+  const negLexAr = ["مؤسف", "سوء", "تراجع", "مشاكل", "مرعب", "تعبنا", "غلاء", "غريب", "حفر", "جفاف", "اهمال", "تاخير", "غالي", "شحيح", "صعب", "معاناة", "سيء", "فشل", "مؤلمة", "خسارة", "ضرر"];
 
-  const infraKeywordsAr = ["الباص السريع", "الباص", "المواصلات", "ازمة السير", "النقل", "المياه", "شوارع", "حفر", "بلدية", "الآبار", "الجفاف", "كهرباء", "طاقة", "حكومة", "البلد", "طرق", "سند", "العداد"];
-  const infraKeywordsEn = ["transport", "traffic", "bus", "rapid", "infrastructure", "water", "scarcity", "road", "roads", "well", "grid", "electricity", "utility", "commute", "government", "sanad"];
+  const posLexEn = ["dream", "great", "supportive", "awesome", "proud", "amazing", "beautiful", "love", "wonderful", "safe", "excellent", "perfect", "good"];
+  const negLexEn = ["expensive", "poor", "traffic", "mess", "problem", "disappointed", "struggle", "inflation", "hard", "worry", "bad", "slow", "ruin"];
 
-  const cultureKeywordsAr = ["منسف", "جميد", "التراث", "ثقافة", "ثقافتنا", "مهرجان", "الاردن الروح", "تاريخ", "المطبخ", "غناء", "فن", "فخور", "مائدة", "الضيافة", "أصيل", "الروماني"];
-  const cultureKeywordsEn = ["mansaf", "culture", "heritage", "food", "festival", "tradition", "hospitality", "cuisine", "arabic", "roman", "theater", "amman"];
+  const negationsAr = ["مش", "ليس", "لا", "غير", "بدون", "ما", "مافي", "عدم"];
+  const negationsEn = ["not", "no", "never", "without", "isn't", "don't", "didn't", "can't"];
 
-  const posLexAr = ["رائع", "ممتاز", "خيالي", "جميل", "مبروك", "بطل", "كفو", "بجنن", "الاعظم", "فخور", "تنظيم", "تطور", "دافي", "كريم", "امن", "سلام", "يحيا", "مبدع", "حب", "إيجابي"];
-  const negLexAr = ["مؤسف", "سوء", "تراجع", "مشاكل", "مرعب", "تعبنا", "غلاء", "الاسعار خيالية", "غريب", "حفر", "جفاف", "اهمال", "تاخير", "غالي", "شحيح", "صعب", "معاناة", "سيء", "فشل"];
-
-  const posLexEn = ["dream", "great", "supportive", "awesome", "proud", "amazing", "beautiful", "love", "wonderful", "friendly", "hospitality", "safe", "excellent", "perfect", "superb", "brilliant"];
-  const negLexEn = ["pushy", "expensive", "poor", "traffic", "mess", "problem", "disappointed", "struggle", "inflation", "high prices", "hard", "worry", "bad", "slow", "ruin", "annoyed"];
-
-  let topicCounts: Record<string, number> = {
-    "Tourism & Hospitality": 0,
-    "Cost of Living & Business": 0,
-    "National Football & Sports": 0,
-    "Transport & Utilities": 0,
-    "Cultural Heritage & Pride": 0,
-    "Civic Reforms & Law": 0,
+  const words = rawWords;
+  const isNegatedAt = (index: number): boolean => {
+    const checkNegs = isArabic ? negationsAr : negationsEn;
+    const windowStart = Math.max(0, index - 2);
+    for (let i = windowStart; i < index; i++) {
+      if (checkNegs.includes(words[i].toLowerCase())) return true;
+    }
+    return false;
   };
 
-  const lowerText = text.toLowerCase();
-  
-  if (isArabic) {
-    tourismKeywordsAr.forEach(kw => { if (processed.includes(kw)) topicCounts["Tourism & Hospitality"] += 2; });
-    economyKeywordsAr.forEach(kw => { if (processed.includes(kw)) topicCounts["Cost of Living & Business"] += 2; });
-    sportsKeywordsAr.forEach(kw => { if (processed.includes(kw)) topicCounts["National Football & Sports"] += 2; });
-    infraKeywordsAr.forEach(kw => { if (processed.includes(kw)) topicCounts["Transport & Utilities"] += 2; });
-    cultureKeywordsAr.forEach(kw => { if (processed.includes(kw)) topicCounts["Cultural Heritage & Pride"] += 2; });
-  } else {
-    tourismKeywordsEn.forEach(kw => { if (lowerText.includes(kw)) topicCounts["Tourism & Hospitality"] += 2; });
-    economyKeywordsEn.forEach(kw => { if (lowerText.includes(kw)) topicCounts["Cost of Living & Business"] += 2; });
-    sportsKeywordsEn.forEach(kw => { if (lowerText.includes(kw)) topicCounts["National Football & Sports"] += 2; });
-    infraKeywordsEn.forEach(kw => { if (lowerText.includes(kw)) topicCounts["Transport & Utilities"] += 2; });
-    cultureKeywordsEn.forEach(kw => { if (lowerText.includes(kw)) topicCounts["Cultural Heritage & Pride"] += 2; });
-  }
-
-  let topic: string = "Cultural Heritage & Pride";
-  let maxCount = 0;
-  Object.keys(topicCounts).forEach(t => {
-    if (topicCounts[t] > maxCount) {
-      maxCount = topicCounts[t];
-      topic = t;
-    }
-  });
-
-  if (maxCount === 0) {
-    if (processed.includes("قانون") || processed.includes("حكومة") || processed.includes("مجلس") || lowerText.includes("policy") || lowerText.includes("government") || processed.includes("بلدية")) {
-      topic = "Civic Reforms & Law";
-    }
-  }
-
-  // Set ultra-specific dynamic sub-topics based on unique Jordanian highlights
-  const lowerProcessed = processed.toLowerCase();
-  if (lowerProcessed.includes("تلفريك") || lowerProcessed.includes("cable car")) {
-    topic = "Ajloun Cable Car";
-  } else if (lowerProcessed.includes("الباص السريع") || lowerProcessed.includes("brt") || lowerProcessed.includes("باص السريع")) {
-    topic = "Public Transport BRT";
-  } else if (lowerProcessed.includes("منسف") || lowerProcessed.includes("mansaf")) {
-    topic = "Mansaf UNESCO Inscriptions";
-  } else if (lowerProcessed.includes("البترا") || lowerProcessed.includes("petra")) {
-    topic = "Petra Entry Pricing";
-  } else if (lowerProcessed.includes("رم") || lowerProcessed.includes("wadi rum")) {
-    topic = "Wadi Rum Tourism";
-  } else if (lowerProcessed.includes("مياه") || lowerProcessed.includes("المياه") || lowerProcessed.includes("ماء") || lowerProcessed.includes("water") || lowerProcessed.includes("شح")) {
-    topic = "Water Conservation";
-  } else if (lowerProcessed.includes("النشامى") || lowerProcessed.includes("nashama") || lowerProcessed.includes("منتخب") || lowerProcessed.includes("كرة") || lowerProcessed.includes("مباراة") || lowerProcessed.includes("تشجيع") || lowerProcessed.includes("خسارة")) {
-    topic = "National Football Pride";
-  } else if (lowerProcessed.includes("اسعار") || lowerProcessed.includes("الغلاء") || lowerProcessed.includes("رواتب") || lowerProcessed.includes("inflation") || lowerProcessed.includes("prices") || lowerProcessed.includes("تضخم")) {
-    topic = "Cost of Living";
-  } else if (lowerProcessed.includes("ريادة") || lowerProcessed.includes("startup") || lowerProcessed.includes("تكنولوجيا") || lowerProcessed.includes("tech") || lowerProcessed.includes("ابتكار")) {
-    topic = "Amman Tech Startups";
-  }
-
-  // Calculate sentiment score
+  let matchedWordsCount = 0;
   let sentimentScore = 0.0;
-  let matches = 0;
+
   if (isArabic) {
-    posLexAr.forEach(kw => { if (processed.includes(kw)) { sentimentScore += 0.45; matches++; } });
-    negLexAr.forEach(kw => { if (processed.includes(kw)) { sentimentScore -= 0.50; matches++; } });
+    posLexAr.forEach(kw => {
+      const idx = words.findIndex(w => w.includes(kw));
+      if (idx !== -1) {
+        matchedWordsCount++;
+        sentimentScore += isNegatedAt(idx) ? -0.50 : 0.45;
+      }
+    });
+    negLexAr.forEach(kw => {
+      const idx = words.findIndex(w => w.includes(kw));
+      if (idx !== -1) {
+        matchedWordsCount++;
+        sentimentScore += isNegatedAt(idx) ? 0.35 : -0.50;
+      }
+    });
   } else {
-    posLexEn.forEach(kw => { if (lowerText.includes(kw)) { sentimentScore += 0.45; matches++; } });
-    negLexEn.forEach(kw => { if (lowerText.includes(kw)) { sentimentScore -= 0.50; matches++; } });
+    posLexEn.forEach(kw => {
+      const idx = words.findIndex(w => w.toLowerCase().includes(kw));
+      if (idx !== -1) {
+        matchedWordsCount++;
+        sentimentScore += isNegatedAt(idx) ? -0.50 : 0.45;
+      }
+    });
+    negLexEn.forEach(kw => {
+      const idx = words.findIndex(w => w.toLowerCase().includes(kw));
+      if (idx !== -1) {
+        matchedWordsCount++;
+        sentimentScore += isNegatedAt(idx) ? 0.35 : -0.50;
+      }
+    });
   }
 
-  sentimentScore = Math.max(-1.0, Math.min(1.0, sentimentScore));
+  // FIX: If no sentiment words matched, unmatched returns 0.0 neutral, not positive 0.35
+  if (matchedWordsCount === 0) {
+    sentimentScore = 0.0;
+  } else {
+    sentimentScore = Math.max(-1.0, Math.min(1.0, sentimentScore));
+  }
   
   let sentiment: SentimentType = "neutral";
   if (sentimentScore > 0.2) sentiment = "positive";
   else if (sentimentScore < -0.2) sentiment = "negative";
 
   const entityWords = isArabic
-    ? ["البترا", "عمان", "العقبة", "النشامى", "الزرقاء", "صويلح", "إربد", "عجلون", "الأردن", "اليونسكو", "روم", "جرش"]
-    : ["Petra", "Amman", "Aqaba", "Rum", "Jordan", "Jerash", "MENA", "Sarah", "Nashama", "Ajloun"];
+    ? ["البترا", "عمان", "العقبة", "النشامى", "الزرقاء", "صويلح", "إربد", "عجلون", "الأردن", "جرش"]
+    : ["Petra", "Amman", "Aqaba", "Rum", "Jordan", "Jerash", "Nashama", "Ajloun"];
      
   const namedEntities = rawWords.filter(w => entityWords.some(ew => ew.toLowerCase() === w.toLowerCase() || ew === w));
   const uniqueEntities = Array.from(new Set(namedEntities)).slice(0, 4);
 
-  const keyPhrases = isArabic
-    ? [processed.split(" ").slice(0, 3).join(" "), processed.split(" ").slice(-2).join(" ")]
-    : [lowerText.split(" ").slice(0, 3).join(" ")];
+  // Label theme for topic display
+  const matchingThemeObj = codebook.themes.find(t => t.id === themeRes.themeId);
+  const topicLabel = matchingThemeObj ? matchingThemeObj.labels.en : "Unclassified / General";
 
   return {
     cleanedText: processed,
     language: lang,
     tokens: tokens.slice(0, 8),
     namedEntities: uniqueEntities.length ? uniqueEntities : [isArabic ? "الأردن" : "Jordan"],
-    keyPhrases: keyPhrases.filter(Boolean),
-    topic,
+    keyPhrases: [processed.split(" ").slice(0, 3).join(" ")].filter(Boolean),
+    topic: topicLabel,
+    themeId: themeRes.themeId,
+    codebookVersion: CODEBOOK_VERSION,
+    themeConfidence: themeRes.confidence,
     sentiment,
-    score: sentimentScore === 0 && matches === 0 ? (isArabic ? 0.35 : 0.0) : sentimentScore
+    score: Number(sentimentScore.toFixed(2)),
+    sentimentConfidence: matchedWordsCount > 0 ? 0.8 : 0.5,
   };
 }
 
 /**
- * Highly Optimized Batch Ingestion Prompting.
- * Processes MULTIPLE comments together instead of individually.
- * Minimizes precious Gemini 429 and rate-limiting triggers on a standard free tier key.
+ * Batch analysis using Gemini with Codebook v1 schema constraints.
  */
-export async function analyzeCommentsBatch(rawItems: { author: string; handle: string; platform: PlatformType; text: string }[]): Promise<Comment[]> {
+export async function analyzeCommentsBatch(rawItems: {
+  author: string;
+  handle: string;
+  platform: PlatformType;
+  text: string;
+  likes?: number;
+  shares?: number;
+  url?: string | null;
+  provenance?: any;
+}[]): Promise<Comment[]> {
   const result: Comment[] = [];
   const ai = getGeminiClient();
 
   if (!ai || rawItems.length === 0) {
-    // In memory fallback for everything
-    console.log("No Gemini client available for batch. Falling back to Local Dialect NLP Engine.");
     return rawItems.map((item, index) => {
       const local = cleanAndPreprocessLocal(item.text);
+      const defaultProv: Provenance = item.provenance || {
+        sourceId: 'user_input',
+        kind: 'social_comment',
+        nativeUrl: item.url || null,
+        fetchedAt: new Date().toISOString(),
+        collectedLive: true,
+      };
+
       return {
-        id: `comment-fallback-batch-${Date.now()}-${index}`,
+        id: `comment-local-${Date.now()}-${index}`,
         author: item.author,
         handle: item.handle,
         platform: item.platform,
@@ -293,48 +269,50 @@ export async function analyzeCommentsBatch(rawItems: { author: string; handle: s
         sentiment: local.sentiment,
         sentimentScore: local.score,
         topic: local.topic,
+        themeId: local.themeId,
+        codebookVersion: local.codebookVersion,
+        themeConfidence: local.themeConfidence,
         timestamp: new Date().toISOString(),
-        likes: Math.floor(Math.random() * 85) + 5,
-        shares: Math.floor(Math.random() * 12),
+        likeCount: item.likes ?? null,
+        replyCount: item.shares ?? null,
         tokens: local.tokens,
         namedEntities: local.namedEntities,
         keyPhrases: local.keyPhrases,
+        provenance: defaultProv,
+        nlpInstrument: 'lexicon_rules',
+        sentimentConfidence: local.sentimentConfidence,
       };
     });
   }
 
-  // Construct batch payload list clearly for Gemini JSON output
-  const textsToAnalyze = rawItems.map((item, idx) => `[ID: ${idx}] Platform: ${item.platform} | Post: "${item.text}"`).join("\n");
+  const validThemeIds = codebook.themes.map(t => t.id);
+  const textsToAnalyze = rawItems.map((item, idx) => `[ID: ${idx}] Post: "${item.text}"`).join("\n");
 
-  const prompt = `You are Jordan's expert Social Intelligence NLP Engine. Analyze the following Jordanian citizen posts and reviews.
-  Some comments are written in standard Jordanian Arabic (Ammiya / Amman vernacular/ Gulf hybrid) or English.
-  
-  Return exactly a JSON array containing NLP analysis for each comment mapped by index. Do not include any nested fields or headers.
-  
-  JSON Array Schema to return:
-  [
-    {
-      "idx": 0,
-      "language": "ar" | "en",
-      "cleanedText": "string - normalized text without emojis and hashtag symbols",
-      "sentiment": "positive" | "neutral" | "negative",
-      "sentimentScore": float between -1.0 and 1.0,
-      "topic": "string - specific local topic / debate (1 to 3 words, e.g. 'Ajloun Cable Car', 'BRT Transportation', 'Water Conservation', 'Cost of Living', 'National Football Pride')"
-    },
-    ...
-  ]
-  
-  Comments to analyze:
-  ${textsToAnalyze}`;
+  const prompt = `Analyze the following Jordanian public posts against Codebook v1 (${CODEBOOK_VERSION}).
+Available Theme IDs: ${validThemeIds.join(', ')}.
+
+Return a JSON array where each item matches:
+{
+  "idx": number,
+  "language": "ar" | "en",
+  "cleanedText": string,
+  "sentiment": "positive" | "neutral" | "negative",
+  "sentimentScore": float between -1.0 and 1.0,
+  "themeId": one of [${validThemeIds.map(t => `'${t}'`).join(', ')}],
+  "confidence": float between 0.0 and 1.0
+}
+
+Posts to analyze:
+${textsToAnalyze}`;
 
   try {
     totalRequestsUsed++;
     const aiResponse = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
+      model: "gemini-2.5-flash",
       contents: prompt,
       config: {
         responseMimeType: "application/json",
-        systemInstruction: "You are an expert NLP data scientist and social media analyst evaluating country-level Jordanian public sentiment, trends, and tourism, sports and cultural discussions in Jordan."
+        systemInstruction: "You are an expert NLP researcher classifying Jordanian citizen dialogue according to Codebook v1 rules."
       }
     });
 
@@ -344,8 +322,19 @@ export async function analyzeCommentsBatch(rawItems: { author: string; handle: s
         const itemAnalysis = parsed.find((p: any) => p.idx === index) || {};
         const local = cleanAndPreprocessLocal(item.text);
 
+        const themeId = validThemeIds.includes(itemAnalysis.themeId) ? itemAnalysis.themeId : local.themeId;
+        const matchingTheme = codebook.themes.find(t => t.id === themeId);
+
+        const defaultProv: Provenance = item.provenance || {
+          sourceId: 'user_input',
+          kind: 'social_comment',
+          nativeUrl: item.url || null,
+          fetchedAt: new Date().toISOString(),
+          collectedLive: true,
+        };
+
         result.push({
-          id: `comment-batch-${Date.now()}-${index}`,
+          id: `comment-gemini-${Date.now()}-${index}`,
           author: item.author,
           handle: item.handle,
           platform: item.platform,
@@ -354,13 +343,19 @@ export async function analyzeCommentsBatch(rawItems: { author: string; handle: s
           language: itemAnalysis.language || local.language,
           sentiment: itemAnalysis.sentiment || local.sentiment,
           sentimentScore: itemAnalysis.sentimentScore ?? local.score,
-          topic: itemAnalysis.topic || local.topic,
-          timestamp: new Date(Date.now() - index * 60 * 1000).toISOString(),
-          likes: Math.floor(Math.random() * 200) + 12,
-          shares: Math.floor(Math.random() * 45) + 2,
+          topic: matchingTheme ? matchingTheme.labels.en : local.topic,
+          themeId,
+          codebookVersion: CODEBOOK_VERSION,
+          themeConfidence: itemAnalysis.confidence ?? 0.9,
+          timestamp: new Date().toISOString(),
+          likeCount: item.likes ?? null,
+          replyCount: item.shares ?? null,
           tokens: local.tokens,
           namedEntities: local.namedEntities,
           keyPhrases: local.keyPhrases,
+          provenance: defaultProv,
+          nlpInstrument: 'gemini_llm',
+          sentimentConfidence: 0.95,
         });
       });
       return result;
@@ -369,11 +364,19 @@ export async function analyzeCommentsBatch(rawItems: { author: string; handle: s
     handleGeminiError(err, "Batch Ingestion Gemini call");
   }
 
-  // Rescue Fallback in case parsed fails
+  // Fallback
   return rawItems.map((item, index) => {
     const local = cleanAndPreprocessLocal(item.text);
+    const defaultProv: Provenance = item.provenance || {
+      sourceId: 'user_input',
+      kind: 'social_comment',
+      nativeUrl: item.url || null,
+      fetchedAt: new Date().toISOString(),
+      collectedLive: true,
+    };
+
     return {
-      id: `comment-fallback-batch-${Date.now()}-${index}`,
+      id: `comment-fallback-${Date.now()}-${index}`,
       author: item.author,
       handle: item.handle,
       platform: item.platform,
@@ -383,100 +386,154 @@ export async function analyzeCommentsBatch(rawItems: { author: string; handle: s
       sentiment: local.sentiment,
       sentimentScore: local.score,
       topic: local.topic,
+      themeId: local.themeId,
+      codebookVersion: local.codebookVersion,
+      themeConfidence: local.themeConfidence,
       timestamp: new Date().toISOString(),
-      likes: Math.floor(Math.random() * 85) + 5,
-      shares: Math.floor(Math.random() * 12),
+      likeCount: item.likes ?? null,
+      replyCount: item.shares ?? null,
       tokens: local.tokens,
       namedEntities: local.namedEntities,
       keyPhrases: local.keyPhrases,
+      provenance: defaultProv,
+      nlpInstrument: 'lexicon_rules',
+      sentimentConfidence: local.sentimentConfidence,
     };
   });
 }
 
 /**
- * Extracts 8-10 trending keywords and topics from comments dynamically using Gemini API.
+ * MATHEMATICAL TRENDS CALCULATOR (Requirement A)
+ * - Counts term occurrences in 7-day current window vs 7-day prior window in actual corpus.
+ * - growth_rate = (current - prior) / max(prior, 1) * 100.
+ * - Suppresses terms with total (prior + current) < 10.
+ * - Gemini ONLY generates the bilingual Arabic/English display labels.
  */
 export async function updateTrendingKeywordsFromComments(comments: Comment[]): Promise<DBTrend[]> {
-  const ai = getGeminiClient();
-  if (!ai || comments.length === 0) {
-    console.log("[Trends Extractor] Gemini client not available or comments empty. Skipping.");
+  if (!comments || comments.length === 0) return [];
+
+  const now = Date.now();
+  const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+  const currentCutoff = now - SEVEN_DAYS_MS;
+  const priorCutoff = now - (2 * SEVEN_DAYS_MS);
+
+  const currentWindowComments = comments.filter(c => {
+    const t = new Date(c.timestamp).getTime();
+    return t >= currentCutoff;
+  });
+
+  const priorWindowComments = comments.filter(c => {
+    const t = new Date(c.timestamp).getTime();
+    return t >= priorCutoff && t < currentCutoff;
+  });
+
+  // Extract candidate tokens/phrases across current and prior windows
+  const currentCounts: Record<string, number> = {};
+  const priorCounts: Record<string, number> = {};
+
+  const extractTerms = (c: Comment) => {
+    const text = (c.cleanedText || c.text || '').toLowerCase();
+    const words = text.split(/\s+/).filter(w => w.length >= 3);
+    const set = new Set<string>();
+    words.forEach(w => set.add(w));
+    return Array.from(set);
+  };
+
+  currentWindowComments.forEach(c => {
+    extractTerms(c).forEach(term => {
+      currentCounts[term] = (currentCounts[term] || 0) + 1;
+    });
+  });
+
+  priorWindowComments.forEach(c => {
+    extractTerms(c).forEach(term => {
+      priorCounts[term] = (priorCounts[term] || 0) + 1;
+    });
+  });
+
+  // Collect candidate terms with current + prior >= 10
+  const candidateTerms: { term: string; current: number; prior: number; total: number; growthRate: number }[] = [];
+  const allTerms = new Set([...Object.keys(currentCounts), ...Object.keys(priorCounts)]);
+
+  allTerms.forEach(term => {
+    const curr = currentCounts[term] || 0;
+    const pri = priorCounts[term] || 0;
+    const total = curr + pri;
+    if (total >= 10) { // Requirement: Suppress any term with prior+current < 10
+      const growthRate = Number((((curr - pri) / Math.max(pri, 1)) * 100).toFixed(1));
+      candidateTerms.push({ term, current: curr, prior: pri, total, growthRate });
+    }
+  });
+
+  // Sort by total occurrences descending
+  candidateTerms.sort((a, b) => b.total - a.total);
+  const topCandidates = candidateTerms.slice(0, 8);
+
+  if (topCandidates.length === 0) {
     return [];
   }
 
-  // Evaluate the 50 most recent comments to identify accurate, real-time trends
-  const recentCommentsText = comments
-    .slice(0, 50)
-    .map(c => `[Platform: ${c.platform}] "${c.text}" (Topic: ${c.topic || "N/A"})`)
-    .join("\n");
+  // Ask Gemini ONLY for bilingual Arabic/English label pairs and category mapping for our computed terms
+  const ai = getGeminiClient();
+  let labelMappings: Record<string, { keyword: string; keywordAr: string; category: string }> = {};
 
-  const prompt = `You are Jordan's expert Social Intelligence NLP Engine.
-From the following recent social media comments and citizen posts, extract the top 8 emerging and trending keywords/topics in Jordan.
-For each keyword/topic, provide:
-1. "keyword": A specific, catchy trending search term/topic in standard English (e.g. "Ajloun Cable Car", "Amman Transport BRT", "National Football Pride", "Petra Price Reform", "Water Scarcity Relief", "Amman Tech Startups"). Keep it short (1-3 words).
-2. "keywordAr": The corresponding Arabic translation/vernacular equivalent of that search term/topic (e.g. "تلفريك عجلون", "الباص السريع الأردني", "المنتخب والنشامى", "رسوم البترا", "شح المياه الأردنية", "شركات عمان الريادية"). Keep it short (1-3 words).
-3. "frequency": estimated mention count based on comments.
-4. "growth_rate": a growth rate percentage float (e.g. 15.4 or -4.5).
-5. "category": must be exactly one of: 'sports', 'economy', 'tourism', 'infrastructure', 'utilities', 'culture' that closest fits the keyword.
+  if (ai) {
+    try {
+      const termList = topCandidates.map(tc => tc.term).join(', ');
+      const prompt = `Provide clean bilingual research labels (English & Arabic) and policy category for these exact terms extracted from Jordanian public discourse: [${termList}].
+Category must be exactly one of: 'sports', 'economy', 'tourism', 'infrastructure', 'utilities', 'culture'.
 
-Return exactly a JSON array of objects conforming to the schema below.
-Schema:
+Return a JSON array:
 [
   {
-    "keyword": "string",
-    "keywordAr": "string",
-    "frequency": number,
-    "growth_rate": number,
+    "term": "string",
+    "keyword": "short English label",
+    "keywordAr": "short Arabic label",
     "category": "sports" | "economy" | "tourism" | "infrastructure" | "utilities" | "culture"
   }
 ]`;
 
-  try {
-    totalRequestsUsed++;
-    const aiResponse = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
-      contents: [
-        { text: prompt },
-        { text: `Recent comments to extract from:\n${recentCommentsText}` }
-      ],
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: Type.ARRAY,
-          items: {
-            type: Type.OBJECT,
-            properties: {
-              keyword: { type: Type.STRING },
-              keywordAr: { type: Type.STRING },
-              frequency: { type: Type.INTEGER },
-              growth_rate: { type: Type.NUMBER },
-              category: { 
-                type: Type.STRING,
-                description: "Must be sports, economy, tourism, infrastructure, utilities, or culture"
-              }
-            },
-            required: ["keyword", "keywordAr", "frequency", "growth_rate", "category"]
-          }
-        },
-        systemInstruction: "You are a trend-spotting analyst extracting micro-trends, key-phrases, and topic sectors from Jordanian social media feeds with bilingual Arabic/English mappings."
-      }
-    });
+      const aiRes = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
+        config: {
+          responseMimeType: "application/json",
+        }
+      });
 
-    const parsed = JSON.parse(aiResponse.text || "[]");
-    if (Array.isArray(parsed) && parsed.length > 0) {
-      const validTrends: DBTrend[] = parsed.map((item: any) => ({
-        keyword: String(item.keyword),
-        keywordAr: String(item.keywordAr),
-        frequency: Number(item.frequency) || Math.floor(Math.random() * 50) + 10,
-        growth_rate: Number(item.growth_rate) || 5.0,
-        category: ['sports', 'economy', 'tourism', 'infrastructure', 'utilities', 'culture'].includes(item.category)
-          ? item.category
-          : 'culture'
-      }));
-      console.log(`[Trends Extractor] Successfully extracted ${validTrends.length} dynamic trends from incoming comments!`);
-      return validTrends;
+      const parsed = JSON.parse(aiRes.text || "[]");
+      if (Array.isArray(parsed)) {
+        parsed.forEach((p: any) => {
+          if (p.term) {
+            labelMappings[p.term] = {
+              keyword: p.keyword || p.term,
+              keywordAr: p.keywordAr || p.term,
+              category: ['sports', 'economy', 'tourism', 'infrastructure', 'utilities', 'culture'].includes(p.category) ? p.category : 'culture'
+            };
+          }
+        });
+      }
+    } catch (e) {
+      handleGeminiError(e, "Trends Label Mapping");
     }
-  } catch (err) {
-    handleGeminiError(err, "Dynamic Trends Keywords extraction");
   }
-  return [];
+
+  // Build final trends with EXACT computed frequency and growth_rate
+  const trends: DBTrend[] = topCandidates.map(tc => {
+    const mapped = labelMappings[tc.term] || {
+      keyword: tc.term,
+      keywordAr: tc.term,
+      category: 'culture' as const
+    };
+
+    return {
+      keyword: mapped.keyword,
+      keywordAr: mapped.keywordAr,
+      frequency: tc.current, // Real current 7-day count
+      growth_rate: tc.growthRate, // Real computed growth rate percentage
+      category: mapped.category as any,
+    };
+  });
+
+  return trends;
 }

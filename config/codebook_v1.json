@@ -1,0 +1,51 @@
+{
+  "version": "v1.0.0",
+  "name": "Jordanian Policy & Public Sector Codebook v1",
+  "themes": [
+    {
+      "id": "unclassified",
+      "labels": { "en": "Unclassified / General", "ar": "غير تصنيفي / عام" },
+      "seedTerms": []
+    },
+    {
+      "id": "tourism_hospitality",
+      "labels": { "en": "Tourism & Hospitality", "ar": "السياحة والضيافة" },
+      "seedTerms": ["البترا", "petra", "وادي رم", "wadi rum", "عجلون", "ajloun", "تلفريك", "cable car", "جرش", "jerash", "العقبة", "aqaba", "سياحة", "tourism", "فندق", "hotel"]
+    },
+    {
+      "id": "cost_of_living",
+      "labels": { "en": "Cost of Living & Economy", "ar": "تكاليف المعيشة والاقتصاد" },
+      "seedTerms": ["غلاء", "الاسعار", "أسعار", "ضريبة", "مبيعات", "تضخم", "رواتب", "سعر", "أسعار", "تكلفة", "معيشة", "inflation", "tax", "price", "cost", "salary"]
+    },
+    {
+      "id": "public_transport",
+      "labels": { "en": "Public Transport & Infrastructure", "ar": "النقل العام والبنية التحتية" },
+      "seedTerms": ["الباص السريع", "brt", "حافلات", "مواصلات", "طرق", "حفر", "سير", "ازدحام", "باص", "amman bus", "traffic", "transit"]
+    },
+    {
+      "id": "governance_services",
+      "labels": { "en": "Governance & Digital Services", "ar": "الحوكمة والخدمات الرقمية" },
+      "seedTerms": ["سند", "sanad", "وزارة", "حكومة", "بلدية", "خدمات", "معاملة", "ترخيص", "بوقراطية", "تطوير", "governance", "ministry", "service"]
+    },
+    {
+      "id": "energy_utilities",
+      "labels": { "en": "Energy & Water Utilities", "ar": "الطاقة والمياه والخدمات العامة" },
+      "seedTerms": ["مياه", "الماء", "شح المياه", "كهرباء", "فاتورة", "طاقة", "سد", "سدود", "water", "electricity", "utility", "grid"]
+    },
+    {
+      "id": "education_employment",
+      "labels": { "en": "Education & Youth Employment", "ar": "التعليم والتشغيل والشباب" },
+      "seedTerms": ["جامعة", "توجيهي", "وظائف", "بطالة", "ريادة", "ابتكار", "شباب", "مدرسة", "تنانير", "education", "jobs", "unemployment", "university"]
+    },
+    {
+      "id": "health_sports",
+      "labels": { "en": "Sports & Public Health", "ar": "الرياضة والصحة العامة" },
+      "seedTerms": ["النشامى", "nashama", "منتخب", "كرة القدم", "مستشفى", "صحة", "تأمين صحي", "دواء", "football", "health", "hospital"]
+    },
+    {
+      "id": "culture_national_pride",
+      "labels": { "en": "Cultural Heritage & National Identity", "ar": "التراث الثقافي والهوية الوطنية" },
+      "seedTerms": ["منسف", "جميد", "mansaf", "تراث", "اليونسكو", "unesco", "ثقافة", "فن", "مهرجان", "heritage", "culture"]
+    }
+  ]
+}

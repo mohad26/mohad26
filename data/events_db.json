@@ -1,0 +1,65 @@
+[
+  {
+    "id": "event-1",
+    "label": "Energy Accord",
+    "icon": "⚡",
+    "desc": "Sovereign commitment into green hydrogen grids & solar energy cells in Southern Badia, motivating employment index spikes.",
+    "sentimentEffect": "positive",
+    "title": "National Hydrogen & Renewable Pact",
+    "date": "2026-03-15"
+  },
+  {
+    "date": "2026-04-05",
+    "desc": "Launch of high-frequency commuter buses lowering standard travel overhead, triggering immense transport optimization.",
+    "id": "event-2",
+    "label": "BRT Phase 2",
+    "icon": "🚌",
+    "title": "Amman-Zarqa BRT Ingress Expansion",
+    "sentimentEffect": "positive"
+  },
+  {
+    "desc": "Deployment of royal tourism stimulus vectors across Petra, Ajloun, & Wadi Rum, marking record-high digital visa registrations.",
+    "label": "Tourism Shift",
+    "icon": "🇯🇴",
+    "id": "event-3",
+    "title": "National Tourism Strategy Launch",
+    "sentimentEffect": "positive",
+    "date": "2026-04-22"
+  },
+  {
+    "date": "2026-05-12",
+    "id": "event-4",
+    "label": "Economic Vision",
+    "icon": "📈",
+    "desc": "Continuous economic goals review aligning 12 governorate vocational pipelines directly with private sector investments.",
+    "sentimentEffect": "neutral",
+    "title": "National Modernization Report"
+  },
+  {
+    "title": "79th Jordan Independence Day",
+    "sentimentEffect": "positive",
+    "desc": "Universal cultural processions & traditional celebrations boosting optimism indices across all monitored social feeds.",
+    "icon": "🇯🇴",
+    "label": "Independence",
+    "id": "event-5",
+    "date": "2026-05-25"
+  },
+  {
+    "date": "2026-06-01",
+    "sentimentEffect": "positive",
+    "title": "Petra Digital Gateway Transition",
+    "id": "event-6",
+    "label": "Petra Ticket",
+    "icon": "🎟️",
+    "desc": "Sovereign transition of physical tickets to secure e-ports at UNESCO sites, eliminating previous vendor bottlenecks."
+  },
+  {
+    "date": "2026-06-05",
+    "id": "event-7",
+    "label": "Agri-Tech Order",
+    "icon": "🌱",
+    "desc": "Royal directive addressing food security, deploying sub-surface smart drip-net technology to farming districts.",
+    "sentimentEffect": "neutral",
+    "title": "Jordan Valley Irrigation Reform"
+  }
+]

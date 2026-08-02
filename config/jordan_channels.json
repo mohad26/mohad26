@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Roya News",
+    "handle": "@RoyaNews",
+    "channelId": ""
+  },
+  {
+    "name": "Al Mamlaka TV",
+    "handle": "@AlMamlakaTV",
+    "channelId": ""
+  },
+  {
+    "name": "Al Ghad Newspaper",
+    "handle": "@alghadnews",
+    "channelId": ""
+  },
+  {
+    "name": "Jo24 News",
+    "handle": "@jo24news",
+    "channelId": ""
+  },
+  {
+    "name": "Khaberni",
+    "handle": "@khabernionline",
+    "channelId": ""
+  },
+  {
+    "name": "Amman TV",
+    "handle": "@AmmanTVOfficial",
+    "channelId": ""
+  },
+  {
+    "name": "Petra News Agency",
+    "handle": "@petranewsagency",
+    "channelId": ""
+  }
+]

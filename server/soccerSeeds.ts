@@ -1,4 +1,12 @@
-import { Comment, PlatformType, SentimentType } from "../src/types";
+import { Comment, Provenance } from "../src/types";
+
+const defaultSeedProv: Provenance = {
+  sourceId: 'user_input',
+  kind: 'social_comment',
+  nativeUrl: null,
+  fetchedAt: '2026-06-20T07:45:00.000Z',
+  collectedLive: false,
+};
 
 export const SOCCER_SEEDS: Comment[] = [
   {
@@ -13,12 +21,13 @@ export const SOCCER_SEEDS: Comment[] = [
     language: "ar",
     sentiment: "neutral",
     sentimentScore: -0.1,
-    likes: 850,
-    shares: 120,
+    likeCount: 850,
+    replyCount: 120,
     timestamp: "2026-06-20T07:45:00.000Z",
     tokens: ["خسرنا", "المباراة", "النشامى", "تشجيع"],
     namedEntities: ["ستاد عمان الدولي"],
-    keyPhrases: ["خسارة النشامى", "التشجيع الرياضي"]
+    keyPhrases: ["خسارة النشامى", "التشجيع الرياضي"],
+    provenance: defaultSeedProv,
   },
   {
     id: "sport-seed-2",
@@ -32,12 +41,13 @@ export const SOCCER_SEEDS: Comment[] = [
     language: "ar",
     sentiment: "negative",
     sentimentScore: -0.4,
-    likes: 640,
-    shares: 88,
+    likeCount: 640,
+    replyCount: 88,
     timestamp: "2026-06-20T07:44:00.000Z",
     tokens: ["تكتيك", "المنتخب", "النشامى", "التشجيع"],
     namedEntities: ["النشامى"],
-    keyPhrases: ["أخطاء التكتيك", "تشجيع النشامى"]
+    keyPhrases: ["أخطاء التكتيك", "تشجيع النشامى"],
+    provenance: defaultSeedProv,
   },
   {
     id: "sport-seed-3",
@@ -51,12 +61,13 @@ export const SOCCER_SEEDS: Comment[] = [
     language: "ar",
     sentiment: "neutral",
     sentimentScore: 0.1,
-    likes: 520,
-    shares: 75,
+    likeCount: 520,
+    replyCount: 75,
     timestamp: "2026-06-20T07:42:00.000Z",
     tokens: ["انقهرنا", "خسارة", "المنتخب", "النشامى", "التشجيع"],
     namedEntities: ["إربد"],
-    keyPhrases: ["خسارة المنتخب", "تشجيع الأبطال"]
+    keyPhrases: ["خسارة المنتخب", "تشجيع الأبطال"],
+    provenance: defaultSeedProv,
   },
   {
     id: "sport-seed-4",
@@ -70,12 +81,13 @@ export const SOCCER_SEEDS: Comment[] = [
     language: "ar",
     sentiment: "negative",
     sentimentScore: -0.3,
-    likes: 490,
-    shares: 60,
+    likeCount: 490,
+    replyCount: 60,
     timestamp: "2026-06-20T07:40:00.000Z",
     tokens: ["زعلانة", "مباراة", "المنتخب", "الخسارة", "التشجيع"],
     namedEntities: ["الزرقاء"],
-    keyPhrases: ["نتيجة المباراة", "كورة القدم"]
+    keyPhrases: ["نتيجة المباراة", "كورة القدم"],
+    provenance: defaultSeedProv,
   },
   {
     id: "sport-seed-5",
@@ -89,12 +101,13 @@ export const SOCCER_SEEDS: Comment[] = [
     language: "ar",
     sentiment: "neutral",
     sentimentScore: 0.15,
-    likes: 580,
-    shares: 92,
+    likeCount: 580,
+    replyCount: 92,
     timestamp: "2026-06-20T07:38:00.000Z",
     tokens: ["الخسارة", "النشامى", "الملعب", "التشجيع"],
     namedEntities: ["البلقاء", "النشامى"],
-    keyPhrases: ["صدمة الخسارة", "مؤازرة النشامى"]
+    keyPhrases: ["صدمة الخسارة", "مؤازرة النشامى"],
+    provenance: defaultSeedProv,
   },
   {
     id: "sport-seed-6",
@@ -108,12 +121,13 @@ export const SOCCER_SEEDS: Comment[] = [
     language: "en",
     sentiment: "positive",
     sentimentScore: 0.5,
-    likes: 390,
-    shares: 45,
+    likeCount: 390,
+    replyCount: 45,
     timestamp: "2026-06-20T07:35:00.000Z",
     tokens: ["performance", "national", "nashama", "supporting", "aqaba"],
     namedEntities: ["Aqaba", "Al-Nashama"],
-    keyPhrases: ["National team decent performance", "keep heads up"]
+    keyPhrases: ["National team decent performance", "keep heads up"],
+    provenance: defaultSeedProv,
   },
   {
     id: "sport-seed-7",
@@ -127,12 +141,13 @@ export const SOCCER_SEEDS: Comment[] = [
     language: "ar",
     sentiment: "positive",
     sentimentScore: 0.65,
-    likes: 670,
-    shares: 110,
+    likeCount: 670,
+    replyCount: 110,
     timestamp: "2026-06-20T07:30:00.000Z",
     tokens: ["معان", "منتخبنا", "خسارة", "النشامى", "التشجيع"],
     namedEntities: ["معان", "النشامى"],
-    keyPhrases: ["شباب معان", "عزيمة النشامى"]
+    keyPhrases: ["شباب معان", "عزيمة النشامى"],
+    provenance: defaultSeedProv,
   },
   {
     id: "sport-seed-8",
@@ -146,12 +161,13 @@ export const SOCCER_SEEDS: Comment[] = [
     language: "ar",
     sentiment: "positive",
     sentimentScore: 0.4,
-    likes: 410,
-    shares: 55,
+    likeCount: 410,
+    replyCount: 55,
     timestamp: "2026-06-20T07:25:00.000Z",
     tokens: ["جرش", "تشجيع", "النشامى", "الخسارة", "المنتخب"],
     namedEntities: ["جرش", "النشامى"],
-    keyPhrases: ["جمهور جرش", "المباريات الحاسمة"]
+    keyPhrases: ["جمهور جرش", "المباريات الحاسمة"],
+    provenance: defaultSeedProv,
   },
   {
     id: "sport-seed-9",
@@ -165,12 +181,13 @@ export const SOCCER_SEEDS: Comment[] = [
     language: "ar",
     sentiment: "neutral",
     sentimentScore: 0.2,
-    likes: 550,
-    shares: 72,
+    likeCount: 550,
+    replyCount: 72,
     timestamp: "2026-06-20T07:20:00.000Z",
     tokens: ["عجلون", "مباراة", "المنتخب", "الخسارة", "النشامى"],
     namedEntities: ["عجلون", "النشامى"],
-    keyPhrases: ["متابعة المباراة", "الروح القتالية للنشامى"]
+    keyPhrases: ["متابعة المباراة", "الروح القتالية للنشامى"],
+    provenance: defaultSeedProv,
   },
   {
     id: "sport-seed-10",
@@ -184,12 +201,13 @@ export const SOCCER_SEEDS: Comment[] = [
     language: "ar",
     sentiment: "positive",
     sentimentScore: 0.7,
-    likes: 310,
-    shares: 38,
+    likeCount: 310,
+    replyCount: 38,
     timestamp: "2026-06-20T07:15:00.000Z",
     tokens: ["الطفيلة", "المنتخب", "الخسارة", "النشامى", "التشجيع"],
     namedEntities: ["الطفيلة", "النشامى"],
-    keyPhrases: ["الرفع بالنشامى", "تأهيل كأس العالم"]
+    keyPhrases: ["الرفع بالنشامى", "تأهيل كأس العالم"],
+    provenance: defaultSeedProv,
   },
   {
     id: "sport-seed-11",
@@ -203,12 +221,13 @@ export const SOCCER_SEEDS: Comment[] = [
     language: "ar",
     sentiment: "neutral",
     sentimentScore: -0.05,
-    likes: 430,
-    shares: 49,
+    likeCount: 430,
+    replyCount: 49,
     timestamp: "2026-06-20T07:10:00.000Z",
     tokens: ["الخسارة", "المفرق", "النشامى", "التكتيك", "المنتخب"],
     namedEntities: ["المفرق", "النشامى"],
-    keyPhrases: ["الشارع الرياضي", "التكتيك الدفاعي"]
+    keyPhrases: ["الشارع الرياضي", "التكتيك الدفاعي"],
+    provenance: defaultSeedProv,
   },
   {
     id: "sport-seed-12",
@@ -222,12 +241,13 @@ export const SOCCER_SEEDS: Comment[] = [
     language: "ar",
     sentiment: "positive",
     sentimentScore: 0.6,
-    likes: 512,
-    shares: 68,
+    likeCount: 512,
+    replyCount: 68,
     timestamp: "2026-06-20T07:05:00.000Z",
     tokens: ["مادبا", "النشامى", "خسارة", "التشجيع", "التأهل"],
     namedEntities: ["مادبا", "الأردن"],
-    keyPhrases: ["مستوى اللعب الرائع", "مؤازرة النشامى"]
+    keyPhrases: ["مستوى اللعب الرائع", "مؤازرة النشامى"],
+    provenance: defaultSeedProv,
   },
   {
     id: "sport-seed-13",
@@ -241,12 +261,13 @@ export const SOCCER_SEEDS: Comment[] = [
     language: "ar",
     sentiment: "neutral",
     sentimentScore: 0.2,
-    likes: 924,
-    shares: 154,
+    likeCount: 924,
+    replyCount: 154,
     timestamp: "2026-06-20T06:55:00.000Z",
     tokens: ["مباراة", "المنتخب", "الاندفاع", "الخسارة", "تكتيك"],
     namedEntities: ["الأردن"],
-    keyPhrases: ["نظرة فنية للمباراة", "التكتيك الدفاعي"]
+    keyPhrases: ["نظرة فنية للمباراة", "التكتيك الدفاعي"],
+    provenance: defaultSeedProv,
   },
   {
     id: "sport-seed-14",
@@ -260,12 +281,13 @@ export const SOCCER_SEEDS: Comment[] = [
     language: "en",
     sentiment: "negative",
     sentimentScore: -0.3,
-    likes: 1250,
-    shares: 310,
+    likeCount: 1250,
+    replyCount: 310,
     timestamp: "2026-06-20T06:45:00.000Z",
     tokens: ["defeat", "stadium", "tactical", "resilience", "cheering"],
     namedEntities: ["Amman Stadium", "Nashama"],
-    keyPhrases: ["Devastating defeat in Amman", "tactical deployment flawed"]
+    keyPhrases: ["Devastating defeat in Amman", "tactical deployment flawed"],
+    provenance: defaultSeedProv,
   },
   {
     id: "sport-seed-15",
@@ -279,11 +301,12 @@ export const SOCCER_SEEDS: Comment[] = [
     language: "ar",
     sentiment: "neutral",
     sentimentScore: 0.1,
-    likes: 715,
-    shares: 104,
+    likeCount: 715,
+    replyCount: 104,
     timestamp: "2026-06-20T06:30:00.000Z",
     tokens: ["الخسارة", "النشامى", "خسرنا", "التشجيع", "المنتخب"],
     namedEntities: ["الأردن"],
-    keyPhrases: ["قهر خسارة المنتخب", "أوفياء لمنتخبنا الوطني"]
+    keyPhrases: ["قهر خسارة المنتخب", "أوفياء لمنتخبنا الوطني"],
+    provenance: defaultSeedProv,
   }
 ];

@@ -3,30 +3,51 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-export type PlatformType = 'X' | 'Facebook' | 'Instagram' | 'YouTube';
+export type PlatformType = 'X' | 'Facebook' | 'Instagram' | 'YouTube' | 'Reddit' | 'GDELT' | 'PetraRSS' | 'MetaImport';
 
 export type SentimentType = 'positive' | 'neutral' | 'negative';
 
 export type TopicType = string;
 
+export interface Provenance {
+  sourceId: 'youtube' | 'reddit' | 'gdelt' | 'petra_rss' | 'meta_import' | 'user_input';
+  kind: 'social_comment' | 'forum_post' | 'news_headline';
+  nativeUrl: string | null;
+  fetchedAt: string;
+  collectedLive: boolean;
+}
+
 export interface Comment {
   id: string;
   author: string;
+  authorHash?: string;
+  displayName?: string;
   handle: string;
   platform: PlatformType;
   text: string;
   cleanedText: string;
   language: 'ar' | 'en';
   sentiment: SentimentType;
-  sentimentScore: number; // Range: -1.0 (Very Negative) to +1.0 (Very Positive)
+  sentimentScore: number; // Range: -1.0 to +1.0
   topic: TopicType;
+  themeId?: string;
+  codebookVersion?: string;
+  themeConfidence?: number;
   timestamp: string; // ISO String
-  likes: number;
-  shares: number;
+  likeCount: number | null;
+  replyCount: number | null;
+  likes?: number; // Legacy alias fallback
+  shares?: number; // Legacy alias fallback
   tokens: string[];
   namedEntities: string[];
   keyPhrases: string[];
   governorate?: string;
+  provenance: Provenance;
+  videoId?: string;
+  videoTitle?: string;
+  nlpInstrument?: 'gemini_llm' | 'lexicon_rules' | 'user_input';
+  sentimentConfidence?: number;
+  contentSourceType?: 'social_post' | 'news_headline' | 'forum_post' | 'user_submission';
 }
 
 export interface KPIStats {

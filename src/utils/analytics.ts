@@ -258,7 +258,7 @@ export function compileExecutiveAnalytics(comments: Comment[], keywordTrends?: D
       volume: 0,
       sentiment: 0,
       growth: growthVal === 0 ? 12 : growthVal,
-      platformBreakdown: { X: 0, Facebook: 0, Instagram: 0, YouTube: 0 }
+      platformBreakdown: { X: 0, Facebook: 0, Instagram: 0, YouTube: 0, Reddit: 0, GDELT: 0, PetraRSS: 0, MetaImport: 0 }
     };
   });
 
