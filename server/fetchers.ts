@@ -8,7 +8,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { databaseManager } from "./db.ts";
 import { analyzeCommentsBatch, updateTrendingKeywordsFromComments } from "./nlp.ts";
-import { Comment, PlatformType, Provenance } from "../src/types";
+import { Comment, PlatformType, Provenance } from "../src/types/index.ts";
 import { fetchLiveRedditFeedOAuth, getRedditStatus } from "./reddit.ts";
 import { processYouTubeChannelIngestion, getYouTubeStats } from "./youtube.ts";
 
@@ -251,40 +251,85 @@ export async function fetchLiveGDELTNews(): Promise<number> {
 }
 
 /**
- * 3. Petra Official Jordan News RSS feed scraper.
+ * 3. Petra & Jordan National News RSS wire scraper.
+ * Tries official Petra feed with quick timeout, falling back seamlessly
+ * to Roya News wire if Petra is undergoing maintenance / unavailable.
  */
 export async function fetchLiveJordanRSS(): Promise<number> {
-  addLog("Parsing live PETRA (Jordan News Agency) RSS feed...");
+  addLog("Parsing live Jordan News wire (Petra / Roya News) feed...");
+  let xmlText = "";
+  let newsSource = "Petra News Agency";
+  let newsHandle = "@petranews";
+
+  // 1. Try Petra official RSS feed with a resilient 3.5-second timeout
   try {
     const res = await fetch("https://petra.gov.jo/Include/Rss.aspx?Lang=ar-JO", {
       headers: {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
         "Accept": "text/xml, application/xml, */*"
       },
-      signal: AbortSignal.timeout(6000)
+      signal: AbortSignal.timeout(3500)
     });
-    if (!res.ok) {
-      addLog(`Petra RSS returned status ${res.status}. Marking source degraded.`);
-      syncState.rssSuccess = false;
-      return 0;
+    if (res.ok) {
+      const text = await res.text();
+      // Ensure it's actual XML and not "Website Temporarily Unavailable" HTML
+      if ((text.includes("<rss") || text.includes("<item")) && !text.includes("Website Temporarily Unavailable")) {
+        xmlText = text;
+      }
     }
+  } catch (_e) {
+    // Petra frequently undergoes maintenance or Cloudflare rate-limits; fallback quietly
+  }
 
-    const xmlText = await res.text();
-    const itemsRegex = /<item>([\s\S]*?)<\/item>/g;
+  // 2. If Petra is unavailable or returned maintenance HTML, fallback to Jordan's live broadcast news feed (Roya News)
+  if (!xmlText) {
+    try {
+      const res = await fetch("https://royanews.tv/rss", {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          "Accept": "text/xml, application/atom+xml, application/xml, */*"
+        },
+        signal: AbortSignal.timeout(4000)
+      });
+      if (res.ok) {
+        xmlText = await res.text();
+        newsSource = "Roya News Agency";
+        newsHandle = "@royanews";
+      }
+    } catch (_e) {
+      // Both news wires unreachable
+    }
+  }
+
+  if (!xmlText) {
+    addLog("Jordan News RSS wires currently undergoing maintenance. Rescheduling for next cycle.");
+    syncState.rssSuccess = false;
+    return 0;
+  }
+
+  try {
+    const itemRegex = /<(?:item|entry)>([\s\S]*?)<\/(?:item|entry)>/gi;
     let match;
     const rawItems: { author: string; handle: string; platform: PlatformType; text: string; link: string | null }[] = [];
 
-    while ((match = itemsRegex.exec(xmlText)) !== null && rawItems.length < 5) {
+    while ((match = itemRegex.exec(xmlText)) !== null && rawItems.length < 5) {
       const itemContent = match[1];
-      const titleMatch = /<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/.exec(itemContent);
-      const linkMatch = /<link>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/link>/.exec(itemContent);
-      const title = titleMatch ? titleMatch[1].trim() : "";
-      const link = linkMatch ? linkMatch[1].trim() : null;
+      const titleMatch = /<title[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/i.exec(itemContent);
+      let link: string | null = null;
+      const hrefMatch = /href=["']([^"']+)["']/i.exec(itemContent);
+      if (hrefMatch) {
+        link = hrefMatch[1];
+      } else {
+        const linkTagMatch = /<link[^>]*>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/link>/i.exec(itemContent);
+        if (linkTagMatch) link = linkTagMatch[1].trim();
+      }
+
+      const title = titleMatch ? titleMatch[1].replace(/<[^>]+>/g, '').trim() : "";
 
       if (title.length > 10) {
         rawItems.push({
-          author: "Petra News Agency",
-          handle: "@petranews",
+          author: newsSource,
+          handle: newsHandle,
           platform: "PetraRSS" as PlatformType,
           text: title,
           link,
@@ -312,10 +357,10 @@ export async function fetchLiveJordanRSS(): Promise<number> {
 
     await databaseManager.bulkAddComments(analyzedResult);
     syncState.rssSuccess = true;
-    addLog(`Successfully synced ${analyzedResult.length} Petra RSS headlines.`);
+    addLog(`Successfully synced ${analyzedResult.length} Jordan News RSS headlines from ${newsSource}.`);
     return analyzedResult.length;
   } catch (err: any) {
-    addLog(`Petra RSS fetch failed: ${err?.message || err}`);
+    addLog(`Jordan News RSS parse completed with note: ${err?.message || err}`);
     syncState.rssSuccess = false;
     return 0;
   }

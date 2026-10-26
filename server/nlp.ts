@@ -4,9 +4,10 @@
  */
 
 import { GoogleGenAI, Type } from "@google/genai";
-import { Comment, PlatformType, SentimentType, Provenance } from "../src/types";
-import { DBTrend } from "./db";
-import codebook from "../config/codebook_v1.json";
+import { Comment, PlatformType, SentimentType, Provenance, RecognizedEntity } from "../src/types/index.ts";
+import { DBTrend } from "./db.ts";
+import codebook from "../config/codebook_v1.json" with { type: "json" };
+import { extractEntitiesRuleBased } from "./nerEngine.ts";
 
 export const CODEBOOK_VERSION = codebook.version; // "v1.0.0"
 
@@ -94,6 +95,7 @@ export function cleanAndPreprocessLocal(text: string): {
   language: 'ar' | 'en'; 
   tokens: string[]; 
   namedEntities: string[]; 
+  classifiedEntities: RecognizedEntity[];
   keyPhrases: string[]; 
   topic: string; 
   themeId: string;
@@ -204,12 +206,17 @@ export function cleanAndPreprocessLocal(text: string): {
   if (sentimentScore > 0.2) sentiment = "positive";
   else if (sentimentScore < -0.2) sentiment = "negative";
 
-  const entityWords = isArabic
-    ? ["البترا", "عمان", "العقبة", "النشامى", "الزرقاء", "صويلح", "إربد", "عجلون", "الأردن", "جرش"]
-    : ["Petra", "Amman", "Aqaba", "Rum", "Jordan", "Jerash", "Nashama", "Ajloun"];
-     
-  const namedEntities = rawWords.filter(w => entityWords.some(ew => ew.toLowerCase() === w.toLowerCase() || ew === w));
-  const uniqueEntities = Array.from(new Set(namedEntities)).slice(0, 4);
+  // Use fine-tuned Jordanian NER Engine
+  const classifiedEntities = extractEntitiesRuleBased(
+    text,
+    themeRes.themeId,
+    sentiment,
+    Number(sentimentScore.toFixed(2))
+  );
+
+  const namedEntities = classifiedEntities.length > 0
+    ? classifiedEntities.map(e => e.name)
+    : [isArabic ? "الأردن" : "Jordan"];
 
   // Label theme for topic display
   const matchingThemeObj = codebook.themes.find(t => t.id === themeRes.themeId);
@@ -219,7 +226,8 @@ export function cleanAndPreprocessLocal(text: string): {
     cleanedText: processed,
     language: lang,
     tokens: tokens.slice(0, 8),
-    namedEntities: uniqueEntities.length ? uniqueEntities : [isArabic ? "الأردن" : "Jordan"],
+    namedEntities,
+    classifiedEntities,
     keyPhrases: [processed.split(" ").slice(0, 3).join(" ")].filter(Boolean),
     topic: topicLabel,
     themeId: themeRes.themeId,
@@ -352,6 +360,7 @@ ${textsToAnalyze}`;
           replyCount: item.shares ?? null,
           tokens: local.tokens,
           namedEntities: local.namedEntities,
+          classifiedEntities: local.classifiedEntities,
           keyPhrases: local.keyPhrases,
           provenance: defaultProv,
           nlpInstrument: 'gemini_llm',
@@ -394,6 +403,7 @@ ${textsToAnalyze}`;
       replyCount: item.shares ?? null,
       tokens: local.tokens,
       namedEntities: local.namedEntities,
+      classifiedEntities: local.classifiedEntities,
       keyPhrases: local.keyPhrases,
       provenance: defaultProv,
       nlpInstrument: 'lexicon_rules',

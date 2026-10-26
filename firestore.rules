@@ -45,7 +45,9 @@ service cloud.firestore {
         && c.provenance.sourceId.size() <= 64
         && c.provenance.kind is string
         && c.provenance.kind.size() <= 64
-        && c.provenance.collectedLive is bool;
+        && c.provenance.collectedLive is bool
+        && (!('governorate' in c) || (c.governorate is string && c.governorate.size() <= 128))
+        && (!('classifiedEntities' in c) || (c.classifiedEntities is list && c.classifiedEntities.size() <= 30));
     }
 
     // Account Category Validation Checker
@@ -73,11 +75,22 @@ service cloud.firestore {
         && evt.sentimentEffect in ['positive', 'neutral', 'negative'];
     }
 
+    // Entity Insight Validation Checker
+    function isValidEntityInsight(ent) {
+      return ent.keys().hasAll(['id', 'name', 'type', 'totalMentions', 'avgSentiment'])
+        && ent.id is string
+        && ent.id.size() <= 128
+        && ent.name is string
+        && ent.name.size() <= 256
+        && ent.type in ['person', 'organization', 'location']
+        && ent.totalMentions is number
+        && ent.avgSentiment is number;
+    }
+
     // Rules for Comments Collection
     match /comments/{commentId} {
       allow read: if true;
-      allow create: if isValidId(commentId) && isValidComment(incoming());
-      allow update: if isValidId(commentId) && isValidComment(incoming()) && incoming().id == existing().id;
+      allow create, update: if isValidId(commentId) && isValidComment(incoming()) && incoming().id == commentId;
       allow delete: if false;
     }
 
@@ -92,6 +105,13 @@ service cloud.firestore {
     match /events/{eventId} {
       allow read: if true;
       allow create, update: if isValidId(eventId) && isValidEvent(incoming());
+      allow delete: if false;
+    }
+
+    // Rules for Recognized Entity Insights Collection
+    match /entities/{entityId} {
+      allow read: if true;
+      allow create, update: if isValidId(entityId) && isValidEntityInsight(incoming()) && incoming().id == entityId;
       allow delete: if false;
     }
   }

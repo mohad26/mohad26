@@ -6,5 +6,7 @@
   "firestoreDatabaseId": "ai-studio-93fca7b0-f450-4cba-b0e8-13fbdc6e6ed9",
   "storageBucket": "charged-rock-zq7jp.firebasestorage.app",
   "messagingSenderId": "1020629120083",
-  "measurementId": ""
+  "measurementId": "",
+  "oAuthClientId": "1020629120083-k5fmgflvg5713lvsdlqvr3ebfj3r8e0g.apps.googleusercontent.com",
+  "recaptchaSiteKey": ""
 }

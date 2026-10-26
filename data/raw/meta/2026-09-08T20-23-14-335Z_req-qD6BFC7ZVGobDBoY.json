@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "platform": "meta",
+  "endpoint": "/v1/credits/balance",
+  "data": {
+    "balance": 74,
+    "recent_deductions": 3
+  },
+  "credits_used": 0,
+  "request_id": "req-qD6BFC7ZVGobDBoY",
+  "cached": false,
+  "credits_remaining": 74
+}

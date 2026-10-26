@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { 
-  Smile, Frown, Shield, Flame, Search, TrendingUp, Compass, ArrowUpDown
+  Smile, Frown, Shield, Flame, Search, TrendingUp, Compass, ArrowUpDown, FileCode2
 } from "lucide-react";
+import { CODEBOOK_VERSION, CODEBOOK_NAME } from "../utils/codebook";
 
 interface EmotionAnalyticsProps {
   emotionData: {
@@ -64,46 +65,71 @@ export default function EmotionAnalytics({
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       
       {/* 1. Emotion Complex breakdown */}
-      <div className="bg-[#131722]/40 rounded-xl border border-slate-800/60 p-5 space-y-4 shadow-sm">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-          <h4 className="text-xs font-bold font-mono text-slate-400 uppercase tracking-widest flex items-center gap-2">
-            <Flame className="w-4 h-4 text-[#CE1126]" />
-            National Emotion Complex Analysis
-          </h4>
-          <span className="text-[10px] bg-indigo-950 text-indigo-400 font-bold px-2 py-0.5 rounded">
-            Linguistic Tone models
-          </span>
-        </div>
-        
-        <p className="text-[11px] text-slate-400 leading-normal">
-          Real-time emotion model aggregates parsed from citizen posts. Useful for detecting sudden crises, sports celebrations, and economic stress spikes.
-        </p>
-
-        <div className="space-y-3.5 pt-1">
-          {EMOTION_PROPS.map((em) => (
-            <div key={em.name} className="space-y-1">
-              <div className="flex justify-between items-center text-xs">
-                <span className="flex items-center gap-1.5 text-slate-350">
-                  {em.icon}
-                  {em.name}
-                </span>
-                <span className={`font-mono font-bold ${em.text}`}>{em.value}%</span>
-              </div>
-              <div className="w-full bg-[#181d2d] h-2.5 rounded-full overflow-hidden border border-slate-850/60">
-                <div className={`${em.progress} h-full rounded-full transition-all duration-500`} style={{ width: `${em.value}%` }} />
-              </div>
+      <div className="bg-[#131722]/40 rounded-xl border border-slate-800/60 p-5 space-y-4 shadow-sm flex flex-col justify-between">
+        <div className="space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-800 pb-2 flex-wrap gap-2">
+            <h4 className="text-xs font-bold font-mono text-slate-400 uppercase tracking-widest flex items-center gap-2">
+              <Flame className="w-4 h-4 text-[#CE1126]" />
+              National Emotion Complex Analysis
+            </h4>
+            <div className="flex items-center gap-1.5">
+              <span 
+                className="text-[9.5px] font-mono bg-slate-900 text-emerald-400 font-bold px-2 py-0.5 rounded border border-emerald-900/40 flex items-center gap-1"
+                title={`${CODEBOOK_NAME} (${CODEBOOK_VERSION})`}
+              >
+                <FileCode2 className="w-3 h-3 text-emerald-400" />
+                codebook: {CODEBOOK_VERSION}
+              </span>
+              <span className="text-[10px] bg-indigo-950 text-indigo-400 font-bold px-2 py-0.5 rounded border border-indigo-900/30">
+                Linguistic Tone
+              </span>
             </div>
-          ))}
+          </div>
+          
+          <p className="text-[11px] text-slate-400 leading-normal">
+            Real-time emotion model aggregates parsed from citizen posts. Useful for detecting sudden crises, sports celebrations, and economic stress spikes.
+          </p>
+
+          <div className="space-y-3.5 pt-1">
+            {EMOTION_PROPS.map((em) => (
+              <div key={em.name} className="space-y-1">
+                <div className="flex justify-between items-center text-xs">
+                  <span className="flex items-center gap-1.5 text-slate-350">
+                    {em.icon}
+                    {em.name}
+                  </span>
+                  <span className={`font-mono font-bold ${em.text}`}>{em.value}%</span>
+                </div>
+                <div className="w-full bg-[#181d2d] h-2.5 rounded-full overflow-hidden border border-slate-850/60">
+                  <div className={`${em.progress} h-full rounded-full transition-all duration-500`} style={{ width: `${em.value}%` }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="border-t border-slate-800/80 pt-3 text-[10px] text-slate-500 font-mono flex items-center justify-between">
+          <span>Active Classification Standard:</span>
+          <span className="text-emerald-400 font-bold">{CODEBOOK_VERSION}</span>
         </div>
       </div>
 
       {/* 2. Bilingual Token Search keywords tables */}
       <div className="bg-[#131722]/40 rounded-xl border border-slate-800/60 p-5 space-y-4 shadow-sm flex flex-col justify-between">
         <div className="space-y-1">
-          <h4 className="text-xs font-bold font-mono text-slate-400 uppercase tracking-widest flex items-center gap-2">
-            <TrendingUp className="w-4 h-4 text-[#007A3D]" />
-            Extracted Keywords sortable Matrix
-          </h4>
+          <div className="flex items-center justify-between flex-wrap gap-2">
+            <h4 className="text-xs font-bold font-mono text-slate-400 uppercase tracking-widest flex items-center gap-2">
+              <TrendingUp className="w-4 h-4 text-[#007A3D]" />
+              Extracted Keywords sortable Matrix
+            </h4>
+            <span 
+              className="text-[9.5px] font-mono bg-slate-900 text-emerald-400 font-bold px-2 py-0.5 rounded border border-emerald-900/40 flex items-center gap-1"
+              title={`${CODEBOOK_NAME} (${CODEBOOK_VERSION})`}
+            >
+              <FileCode2 className="w-3 h-3 text-emerald-400" />
+              codebook: {CODEBOOK_VERSION}
+            </span>
+          </div>
           <p className="text-[11px] text-slate-500">
             Highly structured frequency index of Arabic/English tokens. Useful for research analysts.
           </p>

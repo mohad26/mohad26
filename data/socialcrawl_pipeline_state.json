@@ -1,0 +1,20 @@
+{
+  "api_connection": "UNTESTED",
+  "starting_credits": 100,
+  "credits_used": 0,
+  "credits_remaining": 100,
+  "total_requests": 0,
+  "successful_requests": 0,
+  "failed_requests": 0,
+  "cached_requests": 0,
+  "retried_requests": 0,
+  "current_query": "(\"Hashemite Kingdom of Jordan\" OR Jordan OR الاردن OR الأردن OR Amman OR عمان OR Irbid OR إربد OR Zarqa OR الزرقاء OR Aqaba OR العقبة)",
+  "synced_to_app": 315,
+  "logs": [
+    {
+      "timestamp": "2026-09-10T12:59:14.117Z",
+      "level": "INFO",
+      "message": "Successfully synchronized 315 SocialCrawl records into the main app database!"
+    }
+  ]
+}

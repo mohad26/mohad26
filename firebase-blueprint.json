@@ -8,19 +8,40 @@
         "id": { "type": "string" },
         "author": { "type": "string" },
         "handle": { "type": "string" },
-        "platform": { "type": "string", "enum": ["X", "Facebook", "Instagram", "YouTube"] },
+        "platform": { "type": "string", "enum": ["X", "Facebook", "Instagram", "YouTube", "TikTok", "Threads", "Reddit", "LinkedIn", "Rumble", "Other"] },
         "text": { "type": "string" },
         "cleanedText": { "type": "string" },
         "language": { "type": "string", "enum": ["ar", "en"] },
         "sentiment": { "type": "string", "enum": ["positive", "neutral", "negative"] },
         "sentimentScore": { "type": "number" },
         "topic": { "type": "string" },
+        "themeId": { "type": "string" },
+        "codebookVersion": { "type": "string" },
         "timestamp": { "type": "string", "format": "date-time" },
+        "likeCount": { "type": "number" },
+        "replyCount": { "type": "number" },
         "likes": { "type": "number" },
         "shares": { "type": "number" },
         "tokens": { "type": "array", "items": { "type": "string" } },
         "namedEntities": { "type": "array", "items": { "type": "string" } },
-        "keyPhrases": { "type": "array", "items": { "type": "string" } }
+        "classifiedEntities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "nameEn": { "type": "string" },
+              "type": { "type": "string", "enum": ["person", "organization", "location"] },
+              "confidence": { "type": "number" },
+              "salience": { "type": "number" },
+              "sentiment": { "type": "string" },
+              "sentimentScore": { "type": "number" }
+            }
+          }
+        },
+        "keyPhrases": { "type": "array", "items": { "type": "string" } },
+        "governorate": { "type": "string" },
+        "provenance": { "type": "object" }
       },
       "required": ["id", "author", "handle", "platform", "text", "cleanedText", "language", "sentiment", "sentimentScore", "topic", "timestamp"]
     },
@@ -48,6 +69,24 @@
         "handles": { "type": "array", "items": { "type": "string" } }
       },
       "required": ["handles"]
+    },
+    "RecognizedEntityInsight": {
+      "title": "Recognized Named Entity & Topic Intelligence Record",
+      "description": "Aggregated named entity metric linked with Jordan policy sectors, sentiment, and co-occurrences.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "nameEn": { "type": "string" },
+        "type": { "type": "string", "enum": ["person", "organization", "location"] },
+        "totalMentions": { "type": "number" },
+        "avgSentiment": { "type": "number" },
+        "positiveCount": { "type": "number" },
+        "neutralCount": { "type": "number" },
+        "negativeCount": { "type": "number" },
+        "associatedThemes": { "type": "array" }
+      },
+      "required": ["id", "name", "type", "totalMentions", "avgSentiment"]
     }
   },
   "firestore": {
@@ -62,6 +101,10 @@
     "events": {
       "schema": "Event",
       "description": "Major national events and policy announcements rendered as annotations."
+    },
+    "entities": {
+      "schema": "RecognizedEntityInsight",
+      "description": "Aggregated NER entities and policy sector correlations."
     }
   }
 }

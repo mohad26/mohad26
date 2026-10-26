@@ -1,51 +1,51 @@
 {
-  "version": "v1.0.0",
-  "name": "Jordanian Policy & Public Sector Codebook v1",
+  "version": "v1.1.0",
+  "name": "Jordanian Social Policy Committee Codebook v1.1",
   "themes": [
     {
       "id": "unclassified",
-      "labels": { "en": "Unclassified / General", "ar": "غير تصنيفي / عام" },
+      "labels": { "en": "Unclassified / General", "ar": "غير مصنف / عام" },
       "seedTerms": []
     },
     {
-      "id": "tourism_hospitality",
-      "labels": { "en": "Tourism & Hospitality", "ar": "السياحة والضيافة" },
-      "seedTerms": ["البترا", "petra", "وادي رم", "wadi rum", "عجلون", "ajloun", "تلفريك", "cable car", "جرش", "jerash", "العقبة", "aqaba", "سياحة", "tourism", "فندق", "hotel"]
-    },
-    {
       "id": "cost_of_living",
-      "labels": { "en": "Cost of Living & Economy", "ar": "تكاليف المعيشة والاقتصاد" },
-      "seedTerms": ["غلاء", "الاسعار", "أسعار", "ضريبة", "مبيعات", "تضخم", "رواتب", "سعر", "أسعار", "تكلفة", "معيشة", "inflation", "tax", "price", "cost", "salary"]
+      "labels": { "en": "Cost of Living", "ar": "كلفة المعيشة" },
+      "seedTerms": ["غلاء", "الاسعار", "أسعار", "ضريبة", "مبيعات", "تضخم", "رواتب", "سعر", "تكلفة", "معيشة", "قروض", "فوائد", "إيجار", "طفر", "لحمة", "دجاج", "سلة الغذاء", "قدرة شرائية", "دينار", "ليرة", "مصاريف", "ميزانية", "قسط", "سلفه", "سلفة", "غلاء المعيشة", "ارتفاع الأسعار", "inflation", "tax", "price", "cost", "salary", "jod", "purchasing power"]
     },
     {
       "id": "public_transport",
-      "labels": { "en": "Public Transport & Infrastructure", "ar": "النقل العام والبنية التحتية" },
-      "seedTerms": ["الباص السريع", "brt", "حافلات", "مواصلات", "طرق", "حفر", "سير", "ازدحام", "باص", "amman bus", "traffic", "transit"]
-    },
-    {
-      "id": "governance_services",
-      "labels": { "en": "Governance & Digital Services", "ar": "الحوكمة والخدمات الرقمية" },
-      "seedTerms": ["سند", "sanad", "وزارة", "حكومة", "بلدية", "خدمات", "معاملة", "ترخيص", "بوقراطية", "تطوير", "governance", "ministry", "service"]
-    },
-    {
-      "id": "energy_utilities",
-      "labels": { "en": "Energy & Water Utilities", "ar": "الطاقة والمياه والخدمات العامة" },
-      "seedTerms": ["مياه", "الماء", "شح المياه", "كهرباء", "فاتورة", "طاقة", "سد", "سدود", "water", "electricity", "utility", "grid"]
+      "labels": { "en": "Public Transport", "ar": "النقل العام" },
+      "seedTerms": ["الباص السريع", "brt", "حافلات", "مواصلات", "باص عمان", "أجرة", "موقف", "سير", "ازدحام", "باص", "سرفيس", "تكسي", "مجمع صويلح", "محطة الزرقاء", "خط باص", "أزمة سير", "طريق المطار", "شوارع", "حفر في الشارع", "ترخيص المركبات", "amman bus", "traffic", "transit", "transport", "bus"]
     },
     {
       "id": "education_employment",
-      "labels": { "en": "Education & Youth Employment", "ar": "التعليم والتشغيل والشباب" },
-      "seedTerms": ["جامعة", "توجيهي", "وظائف", "بطالة", "ريادة", "ابتكار", "شباب", "مدرسة", "تنانير", "education", "jobs", "unemployment", "university"]
+      "labels": { "en": "Education & Employment", "ar": "التعليم والتشغيل" },
+      "seedTerms": ["جامعة", "توجيهي", "وظائف", "بطالة", "تشغيل", "تدريب مهني", "فرص عمل", "مدرسة", "معلم", "طلاب", "جامعات", "شهادات", "مناهج", "ديوان الخدمة", "هيئه الخدمه", "الجامعة الأردنية", "جامعة اليرموك", "الهاشمية", "التكنو", "جامعة آل البيت", "جامعة مؤتة", "جامعة الطفيلة", "جامعة الحسين", "البلقاء التطبيقية", "خريجين", "عاطلين", "عقد عمل", "education", "jobs", "unemployment", "university", "employment", "hiring"]
     },
     {
-      "id": "health_sports",
-      "labels": { "en": "Sports & Public Health", "ar": "الرياضة والصحة العامة" },
-      "seedTerms": ["النشامى", "nashama", "منتخب", "كرة القدم", "مستشفى", "صحة", "تأمين صحي", "دواء", "football", "health", "hospital"]
+      "id": "healthcare",
+      "labels": { "en": "Healthcare", "ar": "الصحة" },
+      "seedTerms": ["مستشفى", "صحة", "تأمين صحي", "دواء", "أدوية", "طوارئ", "طبيب", "ممرض", "مركز صحي", "عيادة", "عمليات", "أسرة", "وزارة الصحة", "مدينة الحسين الطبية", "البشير", "مستشفى البشير", "مستشفى المفرق", "مستشفى الأميرة بسمة", "مستشفى الملك المؤسس", "نقص أدوية", "علاج", "تحويلات طبية", "صيدلية", "hospital", "health", "doctor", "medical", "clinic", "medicine"]
     },
     {
-      "id": "culture_national_pride",
-      "labels": { "en": "Cultural Heritage & National Identity", "ar": "التراث الثقافي والهوية الوطنية" },
-      "seedTerms": ["منسف", "جميد", "mansaf", "تراث", "اليونسكو", "unesco", "ثقافة", "فن", "مهرجان", "heritage", "culture"]
+      "id": "gov_services",
+      "labels": { "en": "Government Services", "ar": "الخدمات الحكومية" },
+      "seedTerms": ["سند", "sanad", "منصة سند", "وزارة", "حكومة", "بلدية", "خدمات", "معاملة", "ترخيص", "بيروقراطية", "منصة", "أمانة عمان", "أحوال مدنية", "جوازات", "إلكتروني", "تطبيق سند", "إنجاز معاملة", "تعطيل الخوادم", "digital services", "governance", "ministry", "sanad app"]
+    },
+    {
+      "id": "energy_water",
+      "labels": { "en": "Energy & Water", "ar": "الطاقة والمياه" },
+      "seedTerms": ["مياه", "الماء", "شح المياه", "كهرباء", "فاتورة", "طاقة", "سد", "سدود", "انقطاع الماء", "بنزين", "سولار", "مشتقات نفطية", "طاقة شمسية", "تنك مي", "مياهنا", "شركة اليرموك", "آبار البادية", "الناقل الوطني", "شح مياه", "انقطاع الكهرباء", "water", "electricity", "energy", "fuel", "water shortage"]
+    },
+    {
+      "id": "tourism",
+      "labels": { "en": "Tourism", "ar": "السياحة" },
+      "seedTerms": ["البترا", "petra", "وادي رم", "wadi rum", "عجلون", "ajloun", "تلفريك", "cable car", "جرش", "jerash", "العقبة", "aqaba", "البحر الميت", "سياحة", "tourism", "فندق", "مهرجان", "سياحة علاجية", "أردنا جنة", "تراث", "أم الجمال", "المغطس", "قلعة الكرك", "قلعة عجلون", "visit jordan"]
+    },
+    {
+      "id": "social_protection",
+      "labels": { "en": "Social Protection", "ar": "الحماية الاجتماعية" },
+      "seedTerms": ["الضمان الاجتماعي", "الضمان", "صندوق المعونة", "معونة وطنية", "تكافل", "دعم نقدي", "حماية اجتماعية", "فقر", "أسر عفيفة", "متقاعدين", "تقاعد", "شبكة الأمان", "مظلة الأمان", "عجز", "تعويض", "التقاعد المبكر", "اقتطاع الضمان", "أموال الضمان", "تعديل قانون الضمان", "حرمان من المعونة", "الدعم التكميلي", "رواتب تقاعدية", "معونة الشتاء", "بطاقة الخير", "social protection", "social security", "pension", "welfare", "subsidies", "retirement", "takaful"]
     }
   ]
 }

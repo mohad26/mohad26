@@ -1,4 +1,4 @@
-import { Comment, Provenance } from "../src/types";
+import { Comment, Provenance } from "../src/types/index.ts";
 
 const defaultSeedProv: Provenance = {
   sourceId: 'user_input',

@@ -1,0 +1,1366 @@
+[
+  {
+    "id": "ner-%D8%A7%D9%84%D9%85%D9%85%D9%84%D9%83%D8%A9-%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%86%D9%8A%D8%A9",
+    "name": "المملكة الأردنية",
+    "nameEn": "Hashemite Kingdom of Jordan",
+    "type": "location",
+    "totalMentions": 205,
+    "avgSentiment": -0.05,
+    "positiveCount": 27,
+    "neutralCount": 136,
+    "negativeCount": 42,
+    "positivePct": 13,
+    "neutralPct": 67,
+    "negativePct": 20,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 84,
+        "avgSentiment": -0.03
+      },
+      {
+        "themeId": "unclassified",
+        "themeNameAr": "unclassified",
+        "themeNameEn": "unclassified",
+        "mentions": 82,
+        "avgSentiment": -0.16
+      },
+      {
+        "themeId": "gov_services",
+        "themeNameAr": "الخدمات الحكومية",
+        "themeNameEn": "Government Services",
+        "mentions": 24,
+        "avgSentiment": 0.25
+      },
+      {
+        "themeId": "social_protection",
+        "themeNameAr": "الحماية الاجتماعية",
+        "themeNameEn": "Social Protection",
+        "mentions": 8,
+        "avgSentiment": -0.38
+      },
+      {
+        "themeId": "tourism",
+        "themeNameAr": "السياحة",
+        "themeNameEn": "Tourism",
+        "mentions": 5,
+        "avgSentiment": 0.42
+      },
+      {
+        "themeId": "education_employment",
+        "themeNameAr": "التعليم والتشغيل",
+        "themeNameEn": "Education & Employment",
+        "mentions": 2,
+        "avgSentiment": 0.65
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 204
+      },
+      {
+        "governorate": "Salt / Balqa",
+        "count": 1
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "comment-gemini-1792855691488-6",
+        "text": "العاهل الأردني يوجه الأجهزة المعنية بـ«الرد بحزم والضرب بيد من حديد» على الخوارج",
+        "author": "عاجل News",
+        "platform": "GDELT",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-24T15:28:11.488Z"
+      },
+      {
+        "id": "comment-gemini-1792855691488-7",
+        "text": "العاهل الأردني: أمن الأردنيين وسلامتهم خط أحمر ولا مجال للتهاون بأرواحهم",
+        "author": "السياسة News",
+        "platform": "GDELT",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-24T15:28:11.488Z"
+      },
+      {
+        "id": "comment-gemini-1792855691488-8",
+        "text": "من يحب الأردن لا يدافع عن فاسد: التستر خيانة.. والوقوف مع الجنرال هو الانتماء الحقيقي",
+        "author": "القلعة نيوز News",
+        "platform": "GDELT",
+        "sentiment": "negative",
+        "sentimentScore": -0.7,
+        "timestamp": "2026-10-24T15:28:11.488Z"
+      },
+      {
+        "id": "comment-gemini-1792855691487-5",
+        "text": "الأردن يعلن الحداد العام وتنكيس الأعلام 3 أيام حداداً على أرواح شهداء كنيسة حمود",
+        "author": "قناة المملكة News",
+        "platform": "GDELT",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-24T15:28:11.487Z"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D8%B9%D9%85%D8%A7%D9%86",
+    "name": "عمان",
+    "nameEn": "Amman",
+    "type": "location",
+    "totalMentions": 32,
+    "avgSentiment": 0.13,
+    "positiveCount": 10,
+    "neutralCount": 20,
+    "negativeCount": 2,
+    "positivePct": 31,
+    "neutralPct": 63,
+    "negativePct": 6,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 21,
+        "avgSentiment": 0.09
+      },
+      {
+        "themeId": "unclassified",
+        "themeNameAr": "unclassified",
+        "themeNameEn": "unclassified",
+        "mentions": 10,
+        "avgSentiment": 0.13
+      },
+      {
+        "themeId": "social_protection",
+        "themeNameAr": "الحماية الاجتماعية",
+        "themeNameEn": "Social Protection",
+        "mentions": 1,
+        "avgSentiment": 0.8
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 32
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "reddit-rss-1792319750088-14",
+        "text": "Looking for a good female dermatologist in Amman for hair",
+        "author": "90880f4afd7a520858d531b5c0b4f5a3324f6fa9dc729e8ebbdc3463ce64ddc4",
+        "platform": "Reddit",
+        "sentiment": "positive",
+        "sentimentScore": 0.45,
+        "timestamp": "2026-10-17T16:17:21+00:00"
+      },
+      {
+        "id": "reddit-rss-1791680233509-1",
+        "text": "Where to meet interesting people in Amman?",
+        "author": "3f79372ae9319698243e6dfa12a90a0575103bc822669f8aca693afb1f54ae67",
+        "platform": "Reddit",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-10T19:49:56+00:00"
+      },
+      {
+        "id": "reddit-rss-1791622558231-14",
+        "text": "Good psychiatrist in Amman?",
+        "author": "27de6d11a9b797af614668695a89281539b6d250f5970337896becc4bff47250",
+        "platform": "Reddit",
+        "sentiment": "positive",
+        "sentimentScore": 0.45,
+        "timestamp": "2026-10-09T18:33:52+00:00"
+      },
+      {
+        "id": "reddit-rss-1791504193498-7",
+        "text": "Activities in Amman For The Weekend?",
+        "author": "eb465ca681462aa206652fb4f461c541a13fa94462d4b55f18b215bf9719acb2",
+        "platform": "Reddit",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-08T13:29:23+00:00"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D8%A7%D9%84%D9%83%D8%B1%D9%83",
+    "name": "الكرك",
+    "nameEn": "Karak",
+    "type": "location",
+    "totalMentions": 17,
+    "avgSentiment": 0,
+    "positiveCount": 0,
+    "neutralCount": 17,
+    "negativeCount": 0,
+    "positivePct": 0,
+    "neutralPct": 100,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 11,
+        "avgSentiment": 0
+      },
+      {
+        "themeId": "gov_services",
+        "themeNameAr": "الخدمات الحكومية",
+        "themeNameEn": "Government Services",
+        "mentions": 6,
+        "avgSentiment": 0
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 17
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "comment-gemini-1792855691489-9",
+        "text": "أردن.. الملك عبد الله يتوعد بأشد العقوبات على خلفية هجوم الكرك",
+        "author": "Ronahi TV News",
+        "platform": "GDELT",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-24T15:28:11.489Z"
+      },
+      {
+        "id": "comment-gemini-1792855691487-4",
+        "text": "عاهل الأردن يأمر قوات الأمن بالرد بحزم على هجوم استهدف كنيسة في الكرك",
+        "author": "الراي News",
+        "platform": "GDELT",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-24T15:28:11.487Z"
+      },
+      {
+        "id": "comment-gemini-1792855691472-0",
+        "text": "هجوم الكرك.. ملك الأردن يترأس اجتماعاً لمجلس الأمن القومي",
+        "author": "الشرق للأخبار News",
+        "platform": "GDELT",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-24T15:28:11.472Z"
+      },
+      {
+        "id": "comment-gemini-1792855617807-9",
+        "text": "أردن.. الملك عبد الله يتوعد بأشد العقوبات على خلفية هجوم الكرك",
+        "author": "Ronahi TV News",
+        "platform": "GDELT",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-24T15:26:57.807Z"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D8%A7%D9%84%D8%A3%D9%85%D9%8A%D8%B1-%D8%A7%D9%84%D8%AD%D8%B3%D9%8A%D9%86-%D8%A8%D9%86-%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87",
+    "name": "الأمير الحسين بن عبدالله",
+    "nameEn": "Crown Prince Hussein",
+    "type": "person",
+    "totalMentions": 11,
+    "avgSentiment": 0.71,
+    "positiveCount": 11,
+    "neutralCount": 0,
+    "negativeCount": 0,
+    "positivePct": 100,
+    "neutralPct": 0,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "gov_services",
+        "themeNameAr": "الخدمات الحكومية",
+        "themeNameEn": "Government Services",
+        "mentions": 10,
+        "avgSentiment": 0.7
+      },
+      {
+        "themeId": "social_protection",
+        "themeNameAr": "الحماية الاجتماعية",
+        "themeNameEn": "Social Protection",
+        "mentions": 1,
+        "avgSentiment": 0.8
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 11
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "comment-gemini-1789126058867-4",
+        "text": "من التكنولوجيا إلى خدمة المواطن.. رؤية ولي العهد لبناء أردن المستقبل",
+        "author": "صحيفة الرأي News",
+        "platform": "GDELT",
+        "sentiment": "positive",
+        "sentimentScore": 0.7,
+        "timestamp": "2026-09-11T11:27:38.867Z"
+      },
+      {
+        "id": "comment-gemini-1789122468696-4",
+        "text": "من التكنولوجيا إلى خدمة المواطن.. رؤية ولي العهد لبناء أردن المستقبل",
+        "author": "صحيفة الرأي News",
+        "platform": "GDELT",
+        "sentiment": "positive",
+        "sentimentScore": 0.75,
+        "timestamp": "2026-09-11T10:27:48.696Z"
+      },
+      {
+        "id": "comment-gemini-1789103215858-4",
+        "text": "من التكنولوجيا إلى خدمة المواطن.. رؤية ولي العهد لبناء أردن المستقبل",
+        "author": "صحيفة الرأي News",
+        "platform": "GDELT",
+        "sentiment": "positive",
+        "sentimentScore": 0.7,
+        "timestamp": "2026-09-11T05:06:55.858Z"
+      },
+      {
+        "id": "comment-gemini-1789099623314-5",
+        "text": "من التكنولوجيا إلى خدمة المواطن.. رؤية ولي العهد لبناء أردن المستقبل",
+        "author": "صحيفة الرأي News",
+        "platform": "GDELT",
+        "sentiment": "positive",
+        "sentimentScore": 0.8,
+        "timestamp": "2026-09-11T04:07:03.314Z"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D9%85%D9%86%D8%AA%D8%AE%D8%A8-%D8%A7%D9%84%D9%86%D8%B4%D8%A7%D9%85%D9%89",
+    "name": "منتخب النشامى",
+    "nameEn": "Jordan National Football Team (Al-Nashama)",
+    "type": "organization",
+    "totalMentions": 9,
+    "avgSentiment": 0.23,
+    "positiveCount": 4,
+    "neutralCount": 4,
+    "negativeCount": 1,
+    "positivePct": 44,
+    "neutralPct": 45,
+    "negativePct": 11,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 9,
+        "avgSentiment": 0.23
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 2
+      },
+      {
+        "governorate": "Irbid",
+        "count": 1
+      },
+      {
+        "governorate": "Balqa",
+        "count": 1
+      },
+      {
+        "governorate": "Aqaba",
+        "count": 1
+      },
+      {
+        "governorate": "Jerash",
+        "count": 1
+      },
+      {
+        "governorate": "Tafilah",
+        "count": 1
+      },
+      {
+        "governorate": "Mafraq",
+        "count": 1
+      },
+      {
+        "governorate": "Madaba",
+        "count": 1
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "yt-UgxA0ZR5Y2pZAJvYl1d4AaABAg",
+        "text": "الله حيهم ابناء الكرك النشامى",
+        "author": "a93b3e3fd503a2fcfded1804619a1a8c65f661ad4bfb6d96520ffd2dea39de5e",
+        "platform": "YouTube",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-23T18:11:28Z"
+      },
+      {
+        "id": "sport-seed-3",
+        "text": "قسماً بالله انقهرنا من خسارة المنتخب اليوم بإربد، بس النشامى دايماً بيرفعوا راسنا، هاردلك يا شباب والتشجيع الرياضي مستمر للنهائيات كفو يا أبطال!",
+        "author": "محمد عبيدات",
+        "platform": "X",
+        "sentiment": "neutral",
+        "sentimentScore": 0.1,
+        "timestamp": "2026-06-20T07:42:00.000Z"
+      },
+      {
+        "id": "sport-seed-5",
+        "text": "بالفعل الخسارة كانت صدمة كبيرة للشارع الأردني بالبلقاء وعمان اليوم، بس النشامى رجال في الملعب وقدموا مستوى ممتاز، لازم نركز على مواطن الضعف ونستمر بالتشجيع والدعم والمؤازرة للنشامى",
+        "author": "رائد الفايز",
+        "platform": "X",
+        "sentiment": "neutral",
+        "sentimentScore": 0.15,
+        "timestamp": "2026-06-20T07:38:00.000Z"
+      },
+      {
+        "id": "sport-seed-6",
+        "text": "The performance of our National team (Al-Nashama) was decent despite the soccer loss. We are still supporting you here in Aqaba, keep your heads up! The world cup is still the goal!",
+        "author": "Samir Aqaba",
+        "platform": "X",
+        "sentiment": "positive",
+        "sentimentScore": 0.5,
+        "timestamp": "2026-06-20T07:35:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D8%A5%D8%B1%D8%A8%D8%AF",
+    "name": "إربد",
+    "nameEn": "Irbid",
+    "type": "location",
+    "totalMentions": 7,
+    "avgSentiment": 0.26,
+    "positiveCount": 3,
+    "neutralCount": 4,
+    "negativeCount": 0,
+    "positivePct": 43,
+    "neutralPct": 57,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 4,
+        "avgSentiment": 0
+      },
+      {
+        "themeId": "social_protection",
+        "themeNameAr": "الحماية الاجتماعية",
+        "themeNameEn": "Social Protection",
+        "mentions": 3,
+        "avgSentiment": 0.6
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 7
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "reddit-rss-1792319749888-10",
+        "text": "Endometriosis specialist in Irbid?",
+        "author": "97873abf7d348f8a0e85e4e365faacc669ef0813eeda2e0b3d13bbf2c7695065",
+        "platform": "Reddit",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-17T15:36:47+00:00"
+      },
+      {
+        "id": "reddit-rss-1791857486747-14",
+        "text": "Where can I buy some pre workout in irbid?",
+        "author": "a6a123b721a21d1989819d8f4f765b76c9ad2c3ae0d69db52c1147bfd2ac7758",
+        "platform": "Reddit",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-12T20:41:20+00:00"
+      },
+      {
+        "id": "reddit-rss-1791504190699-3",
+        "text": "صباح الخير من حديقة قهوة العميد اربد",
+        "author": "d7cf102a1e78b8952bb9305ff0d375d8a643619ae20e56b475b4fd9f97c9c225",
+        "platform": "Reddit",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-08T07:13:38+00:00"
+      },
+      {
+        "id": "reddit-rss-1791563915753-12",
+        "text": "صباح الخير من حديقة قهوة العميد اربد",
+        "author": "d7cf102a1e78b8952bb9305ff0d375d8a643619ae20e56b475b4fd9f97c9c225",
+        "platform": "Reddit",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-08T07:13:38+00:00"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D8%A7%D9%84%D9%85%D9%84%D9%83-%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87-%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A",
+    "name": "الملك عبدالله الثاني",
+    "nameEn": "King Abdullah II",
+    "type": "person",
+    "totalMentions": 6,
+    "avgSentiment": 0.13,
+    "positiveCount": 1,
+    "neutralCount": 5,
+    "negativeCount": 0,
+    "positivePct": 17,
+    "neutralPct": 83,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 3,
+        "avgSentiment": 0
+      },
+      {
+        "themeId": "gov_services",
+        "themeNameAr": "الخدمات الحكومية",
+        "themeNameEn": "Government Services",
+        "mentions": 2,
+        "avgSentiment": 0
+      },
+      {
+        "themeId": "social_protection",
+        "themeNameAr": "الحماية الاجتماعية",
+        "themeNameEn": "Social Protection",
+        "mentions": 1,
+        "avgSentiment": 0.8
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 6
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "comment-gemini-1792855691489-9",
+        "text": "أردن.. الملك عبد الله يتوعد بأشد العقوبات على خلفية هجوم الكرك",
+        "author": "Ronahi TV News",
+        "platform": "GDELT",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-24T15:28:11.489Z"
+      },
+      {
+        "id": "comment-gemini-1792855617807-9",
+        "text": "أردن.. الملك عبد الله يتوعد بأشد العقوبات على خلفية هجوم الكرك",
+        "author": "Ronahi TV News",
+        "platform": "GDELT",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-24T15:26:57.807Z"
+      },
+      {
+        "id": "yt-UgzLUgxxTcJI6h466KV4AaABAg",
+        "text": "عقبال الاردن  تحتلها إسرائيل ويدعسو على الملك وعلى كل شعب الاردني والفلسطيني  داخل الاردن. ......",
+        "author": "67897fe4a3cb2606987b0ddcd41b9bb5a83efa1a1010c10cf368fea56f77ad1a",
+        "platform": "YouTube",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-18T08:00:11Z"
+      },
+      {
+        "id": "yt-UgwsoRK2g6EQFL5buv54AaABAg",
+        "text": "من مقومات الاقتصاد \n\nمصانع سيارات\nمصانع طائرات عسكرية مثل اف ٣٥ \nاستخراج معادن للاستخدام المحلي وعدم تصديرها\nزيادة القدرة الإنتاجية فوسفات وزيوت صناعيه واسمنت \n\nوجميعها لا تعتبر مستحيله في ظل نظرة جلاله الملك ودعمه الكامل  للتطوير والتنميه ",
+        "author": "916505105e9479bd8824c2d78d0f352d53ae8888054eb5ac91444ab189bd6f0e",
+        "platform": "YouTube",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-08T07:44:38Z"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D8%B5%D9%86%D8%AF%D9%88%D9%82-%D8%A7%D9%84%D9%85%D8%B9%D9%88%D9%86%D8%A9-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A%D8%A9",
+    "name": "صندوق المعونة الوطنية",
+    "nameEn": "National Aid Fund (NAF)",
+    "type": "organization",
+    "totalMentions": 5,
+    "avgSentiment": 0.22,
+    "positiveCount": 1,
+    "neutralCount": 4,
+    "negativeCount": 0,
+    "positivePct": 20,
+    "neutralPct": 80,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "social_protection",
+        "themeNameAr": "الحماية الاجتماعية",
+        "themeNameEn": "Social Protection",
+        "mentions": 5,
+        "avgSentiment": 0.22
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 5
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "comment-gemini-1789043224362-8",
+        "text": "صندوق المعونة الوطنية في الأردن: رابط التسجيل في الدعم النقدي الموحد والاستعلام عن الطلب",
+        "author": "nedaelwatan.com News",
+        "platform": "GDELT",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-09-10T12:27:04.362Z"
+      },
+      {
+        "id": "comment-gemini-1789039635425-9",
+        "text": "صندوق المعونة الوطنية في الأردن: رابط التسجيل في الدعم النقدي الموحد والاستعلام عن الطلب",
+        "author": "nedaelwatan.com News",
+        "platform": "GDELT",
+        "sentiment": "neutral",
+        "sentimentScore": 0.1,
+        "timestamp": "2026-09-10T11:27:15.425Z"
+      },
+      {
+        "id": "comment-gemini-1789039601171-9",
+        "text": "صندوق المعونة الوطنية في الأردن: رابط التسجيل في الدعم النقدي الموحد والاستعلام عن الطلب",
+        "author": "nedaelwatan.com News",
+        "platform": "GDELT",
+        "sentiment": "neutral",
+        "sentimentScore": 0.1,
+        "timestamp": "2026-09-10T11:26:41.171Z"
+      },
+      {
+        "id": "comment-gemini-1789038961448-9",
+        "text": "صندوق المعونة الوطنية في الأردن: رابط التسجيل في الدعم النقدي الموحد والاستعلام عن الطلب",
+        "author": "nedaelwatan.com News",
+        "platform": "GDELT",
+        "sentiment": "neutral",
+        "sentimentScore": 0.1,
+        "timestamp": "2026-09-10T11:16:01.448Z"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D9%88%D8%B2%D8%A7%D8%B1%D8%A9-%D8%A7%D9%84%D8%AA%D8%B1%D8%A8%D9%8A%D8%A9-%D9%88%D8%A7%D9%84%D8%AA%D8%B9%D9%84%D9%8A%D9%85",
+    "name": "وزارة التربية والتعليم",
+    "nameEn": "Ministry of Education",
+    "type": "organization",
+    "totalMentions": 4,
+    "avgSentiment": 0,
+    "positiveCount": 0,
+    "neutralCount": 4,
+    "negativeCount": 0,
+    "positivePct": 0,
+    "neutralPct": 100,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 4,
+        "avgSentiment": 0
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 4
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "reddit-rss-1792434987217-1",
+        "text": "رحمة الله عليها،يعني اهلها مش لاقيين غير اليمن يودوها تدرس توجيهي هناك؟ اقسم بالله مو فاهمه كيف واحد يطلع بنته يلي عمرها اقل من ١٧ سنة لحالها لدولة ترتيبها عالمياً بمؤشر الأمان 159 من اصل 163والتعليم فيها بيخزي اصلا",
+        "author": "7ce084c5ffd3c7f09fcce0afb283663038b1773b2a0da5f9d86e946b7535eca0",
+        "platform": "Reddit",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-19T08:14:39+00:00"
+      },
+      {
+        "id": "reddit-rss-1792492631070-6",
+        "text": "رحمة الله عليها،يعني اهلها مش لاقيين غير اليمن يودوها تدرس توجيهي هناك؟ اقسم بالله مو فاهمه كيف واحد يطلع بنته يلي عمرها اقل من ١٧ سنة لحالها لدولة ترتيبها عالمياً بمؤشر الأمان 159 من اصل 163والتعليم فيها بيخزي اصلا",
+        "author": "7ce084c5ffd3c7f09fcce0afb283663038b1773b2a0da5f9d86e946b7535eca0",
+        "platform": "Reddit",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-19T08:14:39+00:00"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D8%A7%D9%84%D9%85%D9%84%D9%83%D9%8A%D8%A9-%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%86%D9%8A%D8%A9",
+    "name": "الملكية الأردنية",
+    "nameEn": "Royal Jordanian (RJ)",
+    "type": "organization",
+    "totalMentions": 4,
+    "avgSentiment": -0.17,
+    "positiveCount": 1,
+    "neutralCount": 0,
+    "negativeCount": 3,
+    "positivePct": 25,
+    "neutralPct": 0,
+    "negativePct": 75,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 3,
+        "avgSentiment": -0.5
+      },
+      {
+        "themeId": "social_protection",
+        "themeNameAr": "الحماية الاجتماعية",
+        "themeNameEn": "Social Protection",
+        "mentions": 1,
+        "avgSentiment": 0.8
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 4
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "reddit-rss-1789300902999-5",
+        "text": "Why are RJ flights 300 jds more expensive from Jordan ?",
+        "author": "3abfdf9040d248d4ffbb6b5d4b2bee6f47f2fe97016450b71e950a4d4d5fca9a",
+        "platform": "Reddit",
+        "sentiment": "negative",
+        "sentimentScore": -0.5,
+        "timestamp": "2026-09-13T11:46:52+00:00"
+      },
+      {
+        "id": "reddit-rss-1789300929970-6",
+        "text": "Why are RJ flights 300 jds more expensive from Jordan ?",
+        "author": "3abfdf9040d248d4ffbb6b5d4b2bee6f47f2fe97016450b71e950a4d4d5fca9a",
+        "platform": "Reddit",
+        "sentiment": "negative",
+        "sentimentScore": -0.5,
+        "timestamp": "2026-09-13T11:46:52+00:00"
+      },
+      {
+        "id": "reddit-rss-1789304492133-3",
+        "text": "Why are RJ flights 300 jds more expensive from Jordan ?",
+        "author": "3abfdf9040d248d4ffbb6b5d4b2bee6f47f2fe97016450b71e950a4d4d5fca9a",
+        "platform": "Reddit",
+        "sentiment": "negative",
+        "sentimentScore": -0.5,
+        "timestamp": "2026-09-13T11:46:52+00:00"
+      },
+      {
+        "id": "sc-post-tiktok-7683837283199503623",
+        "text": "صاحب السمو الملكي الأمير هاشم بن عبدالله الثاني هو النجل الأصغر لجلالة الملك عبدالله الثاني ابن الحسين وجلالة الملكة رانيا العبدالله، وولي العهد الأمير الحسين بن عبدالله الثاني. وُلد سموه في العاصمة الأردنية عمّان في 30 يناير 2005، ويتقاسم ",
+        "author": "hl.wh1",
+        "platform": "TikTok",
+        "sentiment": "positive",
+        "sentimentScore": 0.8,
+        "timestamp": "2026-09-10T09:33:07.000Z"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D8%A7%D9%84%D8%A8%D9%84%D9%82%D8%A7%D8%A1",
+    "name": "البلقاء",
+    "nameEn": "Balqa",
+    "type": "location",
+    "totalMentions": 2,
+    "avgSentiment": 0.3,
+    "positiveCount": 1,
+    "neutralCount": 1,
+    "negativeCount": 0,
+    "positivePct": 50,
+    "neutralPct": 50,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 2,
+        "avgSentiment": 0.3
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 1
+      },
+      {
+        "governorate": "Balqa",
+        "count": 1
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "reddit-rss-1792550251264-5",
+        "text": "ما بعرف إذا شفتوا أو لا بس في قصة صايرة على موضوع مواصلات جامعة البلقاء فرع السلط و تعليقات الناس فيها جهل و بتحسسك أنهم منفصلين عن الواقع الي احنا فيه ف حبيت بهاد البروست احكي شوي عن تجربتي مع مواصلات الجامعة",
+        "author": "4209da27bd1ada3817223d8bec63eea27929b5b1fa0c4ccf70832a24d6074103",
+        "platform": "Reddit",
+        "sentiment": "positive",
+        "sentimentScore": 0.45,
+        "timestamp": "2026-10-20T15:20:48+00:00"
+      },
+      {
+        "id": "sport-seed-5",
+        "text": "بالفعل الخسارة كانت صدمة كبيرة للشارع الأردني بالبلقاء وعمان اليوم، بس النشامى رجال في الملعب وقدموا مستوى ممتاز، لازم نركز على مواطن الضعف ونستمر بالتشجيع والدعم والمؤازرة للنشامى",
+        "author": "رائد الفايز",
+        "platform": "X",
+        "sentiment": "neutral",
+        "sentimentScore": 0.15,
+        "timestamp": "2026-06-20T07:38:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D9%85%D9%86%D8%B5%D8%A9-%D8%B3%D9%86%D8%AF-%D8%A7%D9%84%D8%AD%D9%83%D9%88%D9%85%D9%8A%D8%A9",
+    "name": "منصة سند الحكومية",
+    "nameEn": "Sanad Gov Portal",
+    "type": "organization",
+    "totalMentions": 2,
+    "avgSentiment": -0.25,
+    "positiveCount": 0,
+    "neutralCount": 1,
+    "negativeCount": 1,
+    "positivePct": 0,
+    "neutralPct": 50,
+    "negativePct": 50,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 2,
+        "avgSentiment": -0.25
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 2
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "reddit-rss-1791973875697-5",
+        "text": "Got my birth certificate on sanad but how can i get a hard copy?",
+        "author": "c3e1b2a3db8fd09589bbc3f334c28af1fe62ef70b6d5be56436a1fb744bf0d0d",
+        "platform": "Reddit",
+        "sentiment": "negative",
+        "sentimentScore": -0.5,
+        "timestamp": "2026-10-14T01:37:17+00:00"
+      },
+      {
+        "id": "reddit-rss-1789765396184-12",
+        "text": "how long does military service deferral on sanad take to complete?",
+        "author": "adda44c4fce4211d371b59c5b47a76b7262bc2485392f9ba579e4da90449310d",
+        "platform": "Reddit",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-09-18T14:56:46+00:00"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D8%A7%D9%84%D8%B9%D9%82%D8%A8%D8%A9",
+    "name": "العقبة",
+    "nameEn": "Aqaba",
+    "type": "location",
+    "totalMentions": 2,
+    "avgSentiment": 0.25,
+    "positiveCount": 1,
+    "neutralCount": 1,
+    "negativeCount": 0,
+    "positivePct": 50,
+    "neutralPct": 50,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 2,
+        "avgSentiment": 0.25
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 1
+      },
+      {
+        "governorate": "Aqaba",
+        "count": 1
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "sport-seed-6",
+        "text": "The performance of our National team (Al-Nashama) was decent despite the soccer loss. We are still supporting you here in Aqaba, keep your heads up! The world cup is still the goal!",
+        "author": "Samir Aqaba",
+        "platform": "X",
+        "sentiment": "positive",
+        "sentimentScore": 0.5,
+        "timestamp": "2026-06-20T07:35:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D9%85%D8%A7%D8%AF%D8%A8%D8%A7",
+    "name": "مادبا",
+    "nameEn": "Madaba",
+    "type": "location",
+    "totalMentions": 2,
+    "avgSentiment": 0.3,
+    "positiveCount": 1,
+    "neutralCount": 1,
+    "negativeCount": 0,
+    "positivePct": 50,
+    "neutralPct": 50,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 2,
+        "avgSentiment": 0.3
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 1
+      },
+      {
+        "governorate": "Madaba",
+        "count": 1
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "reddit-rss-1791680234509-8",
+        "text": "Hair and makeup recommendation - madaba",
+        "author": "ebf78f3ab5d5bf9b1a77ff26be69d49c818193cb1af209190f92742e1807ebda",
+        "platform": "Reddit",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-10-10T19:40:10+00:00"
+      },
+      {
+        "id": "sport-seed-12",
+        "text": "مادبا فخورة بمنتخب النشامى رغم خسارة اليوم غير المنصفة، مستوى اللعب والروح الفنية كانت رائعة، التشجيع والمؤازرة حتى التأهل لرفع علم الأردن عالياً بالمحافل الكبيرة",
+        "author": "ديما الشوابكة",
+        "platform": "Facebook",
+        "sentiment": "positive",
+        "sentimentScore": 0.6,
+        "timestamp": "2026-06-20T07:05:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D8%A7%D9%84%D8%A8%D8%A7%D8%B5-%D8%B3%D8%B1%D9%8A%D8%B9-%D8%A7%D9%84%D8%AA%D8%B1%D8%AF%D8%AF",
+    "name": "الباص سريع التردد",
+    "nameEn": "Bus Rapid Transit (BRT)",
+    "type": "organization",
+    "totalMentions": 1,
+    "avgSentiment": 0,
+    "positiveCount": 0,
+    "neutralCount": 1,
+    "negativeCount": 0,
+    "positivePct": 0,
+    "neutralPct": 100,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 1,
+        "avgSentiment": 0
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 1
+      }
+    ],
+    "recentQuotes": []
+  },
+  {
+    "id": "ner-%D8%AC%D8%B9%D9%81%D8%B1-%D8%AD%D8%B3%D8%A7%D9%86",
+    "name": "جعفر حسان",
+    "nameEn": "Jafar Hassan (Prime Minister)",
+    "type": "person",
+    "totalMentions": 1,
+    "avgSentiment": 0.45,
+    "positiveCount": 1,
+    "neutralCount": 0,
+    "negativeCount": 0,
+    "positivePct": 100,
+    "neutralPct": 0,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 1,
+        "avgSentiment": 0.45
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 1
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "yt-Ugzla-25mj1Msb6N8Rh4AaABAg",
+        "text": "رئيس الوزراء الاردني معالي جعفر حسان يستاهل كل خير والله - انسان مخلص لوطنه و يفتتح مشاريع كثيرة و جاء بمليارات الدولارات مشاريع للأردن والله انه مسؤول كفو",
+        "author": "562c7a70d2993884ae607e7cd69a389a5762b55968d4340ced3602e18ad7d0b0",
+        "platform": "YouTube",
+        "sentiment": "positive",
+        "sentimentScore": 0.45,
+        "timestamp": "2026-09-21T12:37:25Z"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D8%A7%D9%84%D8%A3%D8%BA%D9%88%D8%A7%D8%B1",
+    "name": "الأغوار",
+    "nameEn": "Jordan Valley (Ghor)",
+    "type": "location",
+    "totalMentions": 1,
+    "avgSentiment": 0,
+    "positiveCount": 0,
+    "neutralCount": 1,
+    "negativeCount": 0,
+    "positivePct": 0,
+    "neutralPct": 100,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 1,
+        "avgSentiment": 0
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 1
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "reddit-rss-1789823019207-2",
+        "text": "طهي المنسف في منطقة الشونة الجنوبية عام 1935",
+        "author": "a0ee9b7cfd10226e2cbbab8a237ab03dea4b8878d837aa61512755bb9b6884e7",
+        "platform": "Reddit",
+        "sentiment": "neutral",
+        "sentimentScore": 0,
+        "timestamp": "2026-09-19T10:04:41+00:00"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D8%A7%D9%84%D9%85%D9%84%D9%83%D8%A9-%D8%B1%D8%A7%D9%86%D9%8A%D8%A7-%D8%A7%D9%84%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87",
+    "name": "الملكة رانيا العبدالله",
+    "nameEn": "Queen Rania",
+    "type": "person",
+    "totalMentions": 1,
+    "avgSentiment": 0.8,
+    "positiveCount": 1,
+    "neutralCount": 0,
+    "negativeCount": 0,
+    "positivePct": 100,
+    "neutralPct": 0,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "social_protection",
+        "themeNameAr": "الحماية الاجتماعية",
+        "themeNameEn": "Social Protection",
+        "mentions": 1,
+        "avgSentiment": 0.8
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Amman",
+        "count": 1
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "sc-post-tiktok-7683837283199503623",
+        "text": "صاحب السمو الملكي الأمير هاشم بن عبدالله الثاني هو النجل الأصغر لجلالة الملك عبدالله الثاني ابن الحسين وجلالة الملكة رانيا العبدالله، وولي العهد الأمير الحسين بن عبدالله الثاني. وُلد سموه في العاصمة الأردنية عمّان في 30 يناير 2005، ويتقاسم ",
+        "author": "hl.wh1",
+        "platform": "TikTok",
+        "sentiment": "positive",
+        "sentimentScore": 0.8,
+        "timestamp": "2026-09-10T09:33:07.000Z"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D8%A7%D9%84%D8%B2%D8%B1%D9%82%D8%A7%D8%A1",
+    "name": "الزرقاء",
+    "nameEn": "Zarqa",
+    "type": "location",
+    "totalMentions": 1,
+    "avgSentiment": -0.3,
+    "positiveCount": 0,
+    "neutralCount": 0,
+    "negativeCount": 1,
+    "positivePct": 0,
+    "neutralPct": 0,
+    "negativePct": 100,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 1,
+        "avgSentiment": -0.3
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Zarqa",
+        "count": 1
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "sport-seed-4",
+        "text": "الزرقاء كلها زعلانة على نتيجة مباراة منتخبنا الوطني ضد خصمه اليوم، الخسارة صعبة بس هي كورة القدم فوز وخسارة، المهم الاستفادة من التكتيك القادم والتشجيع ما يوقف دايماً معكم",
+        "author": "أحمد الزرقاوي",
+        "platform": "Instagram",
+        "sentiment": "negative",
+        "sentimentScore": -0.3,
+        "timestamp": "2026-06-20T07:40:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D9%85%D8%B9%D8%A7%D9%86",
+    "name": "معان",
+    "nameEn": "Ma'an",
+    "type": "location",
+    "totalMentions": 1,
+    "avgSentiment": 0.65,
+    "positiveCount": 1,
+    "neutralCount": 0,
+    "negativeCount": 0,
+    "positivePct": 100,
+    "neutralPct": 0,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 1,
+        "avgSentiment": 0.65
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Ma'an",
+        "count": 1
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "sport-seed-7",
+        "text": "شباب معان خلف منتخبنا في كل الظروف، خسارة هاي المباراة مش نهاية المطاف، القادم أفضل للنشامى وعزيمتهم حديد ان شاء الله، التشجيع والوقفة مستمرة وما بنقصر معكم",
+        "author": "أبو كركي",
+        "platform": "Facebook",
+        "sentiment": "positive",
+        "sentimentScore": 0.65,
+        "timestamp": "2026-06-20T07:30:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D8%AC%D8%B1%D8%B4",
+    "name": "جرش",
+    "nameEn": "Jerash",
+    "type": "location",
+    "totalMentions": 1,
+    "avgSentiment": 0.4,
+    "positiveCount": 1,
+    "neutralCount": 0,
+    "negativeCount": 0,
+    "positivePct": 100,
+    "neutralPct": 0,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 1,
+        "avgSentiment": 0.4
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Jerash",
+        "count": 1
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "sport-seed-8",
+        "text": "جمهور جرش وفي ومستمر في تشجيع النشامى، الخسارة اليوم تزعل بس منتخبنا الوطني دايماً بيفاجئنا بروح عالية وقادر يرجع بقوة في المباريات الحاسمة القادمة، قادمون يا أبطال",
+        "author": "خالد بني مصطفى",
+        "platform": "X",
+        "sentiment": "positive",
+        "sentimentScore": 0.4,
+        "timestamp": "2026-06-20T07:25:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D8%B9%D8%AC%D9%84%D9%88%D9%86",
+    "name": "عجلون",
+    "nameEn": "Ajloun",
+    "type": "location",
+    "totalMentions": 1,
+    "avgSentiment": 0.2,
+    "positiveCount": 0,
+    "neutralCount": 1,
+    "negativeCount": 0,
+    "positivePct": 0,
+    "neutralPct": 100,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 1,
+        "avgSentiment": 0.2
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Ajloun",
+        "count": 1
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "sport-seed-9",
+        "text": "عجلون كلها كانت تتابع مباراة المنتخب اليوم على أعصابها، للأسف خسارة مؤلمة لكن الروح القتالية للنشامى كفو وبتنرفع فيها الراس دايماً، كل التشجيع لكم والدعم المتواصل",
+        "author": "رائد الرواشدة",
+        "platform": "X",
+        "sentiment": "neutral",
+        "sentimentScore": 0.2,
+        "timestamp": "2026-06-20T07:20:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D8%A7%D9%84%D8%B7%D9%81%D9%8A%D9%84%D8%A9",
+    "name": "الطفيلة",
+    "nameEn": "Tafilah",
+    "type": "location",
+    "totalMentions": 1,
+    "avgSentiment": 0.7,
+    "positiveCount": 1,
+    "neutralCount": 0,
+    "negativeCount": 0,
+    "positivePct": 100,
+    "neutralPct": 0,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 1,
+        "avgSentiment": 0.7
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Tafilah",
+        "count": 1
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "sport-seed-10",
+        "text": "الطفيلة الهاشمية ترفع القبعة لأبطال منتخبنا الوطني، هاردلك الخسارة بس انتو النشامى تكتيك وقوة وعزيمة، التشجيع مستمر حتى نتأهل لكأس العالم ونسعد كل بيت أردني",
+        "author": "سامر الطفيلة",
+        "platform": "Instagram",
+        "sentiment": "positive",
+        "sentimentScore": 0.7,
+        "timestamp": "2026-06-20T07:15:00.000Z"
+      }
+    ]
+  },
+  {
+    "id": "ner-%D8%A7%D9%84%D9%85%D9%81%D8%B1%D9%82",
+    "name": "المفرق",
+    "nameEn": "Mafraq",
+    "type": "location",
+    "totalMentions": 1,
+    "avgSentiment": -0.05,
+    "positiveCount": 0,
+    "neutralCount": 1,
+    "negativeCount": 0,
+    "positivePct": 0,
+    "neutralPct": 100,
+    "negativePct": 0,
+    "associatedThemes": [
+      {
+        "themeId": "cost_of_living",
+        "themeNameAr": "كلفة المعيشة",
+        "themeNameEn": "Cost of Living",
+        "mentions": 1,
+        "avgSentiment": -0.05
+      }
+    ],
+    "associatedGovernorates": [
+      {
+        "governorate": "Mafraq",
+        "count": 1
+      }
+    ],
+    "recentQuotes": [
+      {
+        "id": "sport-seed-11",
+        "text": "الخسارة صعبة بالشارع الرياضي بس المفرق كلها ورا النشامى، تكتيك دفاعي كان بدو تركيز ومبروك للخصم، بس منتخبنا الوطني اسم غالي بالقلب والتشجيع مستمر للآخر وما بنمل",
+        "author": "إسماعيل العيسى",
+        "platform": "X",
+        "sentiment": "neutral",
+        "sentimentScore": -0.05,
+        "timestamp": "2026-06-20T07:10:00.000Z"
+      }
+    ]
+  }
+]

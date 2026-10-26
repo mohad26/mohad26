@@ -1,6 +1,6 @@
 {
   "name": "Jordan Social Sentiment SaaS",
-  "description": "Enterprise SaaS dashboard for collecting, cleaning, and analyzing social media comment trends and topic sentiments in Jordan using NLP and GenAI.",
+  "description": "المنصة الرقمية الوطنية لرصد وتحليل اتجاهات الرأي العام للقضايا والسياسات الاجتماعية - المجلس الاقتصادي والاجتماعي الأردني (Economic and Social Council of Jordan - Social Policy Committee)",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

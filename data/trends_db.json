@@ -1,58 +1,58 @@
 [
   {
-    "keyword": "jordan",
-    "keywordAr": "jordan",
-    "frequency": 96,
-    "growth_rate": 9600,
+    "keyword": "Church",
+    "keywordAr": "كنيسة",
+    "frequency": 373,
+    "growth_rate": 37300,
     "category": "culture"
   },
   {
-    "keyword": "the",
-    "keywordAr": "the",
-    "frequency": 68,
-    "growth_rate": 6800,
+    "keyword": "Hammoud (name)",
+    "keywordAr": "حمود",
+    "frequency": 332,
+    "growth_rate": 33200,
     "category": "culture"
   },
   {
-    "keyword": "for",
-    "keywordAr": "for",
-    "frequency": 49,
-    "growth_rate": 4900,
+    "keyword": "On / Upon",
+    "keywordAr": "على",
+    "frequency": 276,
+    "growth_rate": 27600,
     "category": "culture"
   },
   {
-    "keyword": "and",
-    "keywordAr": "and",
-    "frequency": 47,
-    "growth_rate": 4700,
+    "keyword": "Jordan",
+    "keywordAr": "الأردن",
+    "frequency": 262,
+    "growth_rate": 26200,
     "category": "culture"
   },
   {
-    "keyword": "اليوم",
-    "keywordAr": "اليوم",
-    "frequency": 46,
-    "growth_rate": 4600,
+    "keyword": "Martyrs",
+    "keywordAr": "شهداء",
+    "frequency": 219,
+    "growth_rate": 21900,
     "category": "culture"
   },
   {
-    "keyword": "national",
-    "keywordAr": "national",
-    "frequency": 44,
-    "growth_rate": 4400,
+    "keyword": "And Half-masting / Lowering",
+    "keywordAr": "وتنكيس",
+    "frequency": 207,
+    "growth_rate": 20700,
     "category": "culture"
   },
   {
-    "keyword": "jack",
-    "keywordAr": "jack",
-    "frequency": 39,
-    "growth_rate": 3900,
+    "keyword": "Flags",
+    "keywordAr": "الأعلام",
+    "frequency": 207,
+    "growth_rate": 20700,
     "category": "culture"
   },
   {
-    "keyword": "smith",
-    "keywordAr": "smith",
-    "frequency": 39,
-    "growth_rate": 3900,
+    "keyword": "Sedition / Discord",
+    "keywordAr": "الفتنة",
+    "frequency": 207,
+    "growth_rate": 20700,
     "category": "culture"
   }
 ]
